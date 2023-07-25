@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/25 19:47:21 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/25 18:27:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
-
-int	main(void)
+void	ft_exec_cmd(char **cmd)
 {
-	t_env	e;
+	int	i;
 
-	while (1)
-	{
-		e.readline = readline("Minishell❤️ :");
-		printf("\"%s\"\n", e.readline);
-		ft_split_to_tokens(&e);
-		free(e.readline);
-	}
-	return (0);
+//	printf("executing \"%s\"", cmd[0]);
+	i = 0;
+	while (cmd[i])
+		printf("arg %d = \"%s\"", cmd[i++]);
 }

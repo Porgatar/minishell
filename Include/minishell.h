@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/24 18:54:07 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:59:36 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,25 @@
 
 /*	-	-	-	-	Defines		-	-	-	-	*/
 
-size_t	g_error;
 
 /*	-	-	-	-	Typedefs	-	-	-	-	*/
+
+typedef struct s_cmd
+{
+	char			**cmd;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_env
 {
 	char	*readline;
+	t_cmd	*list;
 }	t_env;
 
 /*	-	-	-	-	main.c		-	-	-	-	*/
 
+/*	-	-	ft_split_to_tokens.c		-	-	*/
+void	ft_split_to_tokens(t_env *e);
 
 
 #endif

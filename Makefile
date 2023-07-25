@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/07/24 15:56:25 by parinder         ###   ########.fr        #
+#    Updated: 2023/07/25 19:47:11 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ OBJ=		$(SRC:.c=.o)
 BOBJ=		$(BSRC:.c=.o)
 
 SRC=		Src/main.c \
+			Src/ft_split_to_tokens.c
 
 BSRC=		Src/main_bonus.c \
+			Src/ft_split_to_tokens.c
 
 LIB.A=		Libft/libft.a
 
