@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/26 18:22:28 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:42:21 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(void)
 {
 	t_env	e;
+	int		i;
 
 	while (1)
 	{
@@ -24,8 +25,10 @@ int	main(void)
 		free(e.readline);
 		if (!e.tokens)
 			return (0);
-		while ((*e.tokens))
-			printf("%s\n", (*e.tokens++));
+		i = 0;
+		while ((e.tokens[i]))
+			printf("%s\n", (e.tokens[i++]));
+		ft_free_2dtab(e.tokens, i);
 	}
 	return (0);
 }
