@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/26 18:25:10 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:53:06 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ char	**ft_split_to_tokens(const char *str);
 
 /*	-	-	-	-	main.c		-	-	-	-	*/
 void	ft_free_2dtab(char **str, int i);
+int		is_space(char c);
 
 #endif
