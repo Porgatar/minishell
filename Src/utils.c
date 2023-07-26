@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 19:10:20 by parinder          #+#    #+#             */
-/*   Updated: 2022/10/05 19:10:21 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/26 17:29:00 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/26 18:26:43 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../Include/minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_free_2dtab(char **strs, int i)
 {
-	t_list	*element;
-
-	if (!lst || !f)
-		return ;
-	element = lst;
-	while (element)
+	while (i >= 0)
 	{
-		f(element->content);
-		element = element->next;
+		free(strs[i]);
+		i--;
 	}
+	free(strs);
 }

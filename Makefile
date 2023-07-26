@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/07/25 19:47:11 by parinder         ###   ########.fr        #
+#    Updated: 2023/07/26 18:26:10 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,41 +25,37 @@ OBJ=		$(SRC:.c=.o)
 BOBJ=		$(BSRC:.c=.o)
 
 SRC=		Src/main.c \
-			Src/ft_split_to_tokens.c
+			Src/ft_split_to_tokens.c \
+			Src/utils.c
 
 BSRC=		Src/main_bonus.c \
-			Src/ft_split_to_tokens.c
-
-LIB.A=		Libft/libft.a
+			Src/ft_split_to_tokens.c \
+			Src/utils.c
 
 all:		$(NAME)
 
 bonus:		$(BNAME)
 
 $(NAME):	$(OBJ)
-			make -sC Libft
-			$(CC) $(CFLAGS) $(OBJ) $(LIB.A) -o $(NAME) -lreadline
+			$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BGreen)"       project compiled!        "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
 $(BNAME):	$(BOBJ)
-			make -sC Libft
-			$(CC) $(CFLAGS) $(BOBJ) $(LIB.A) -o $(BNAME)
+			$(CC) $(CFLAGS) $(BOBJ) -o $(BNAME)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BGreen)"        bonus compiled!         "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
 clean:
 			rm -f $(OBJ) $(BOBJ)
-			make clean -sC Libft
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BYellow)"       objects cleaned!         "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
 fclean:		clean
 			rm -f $(NAME) $(BNAME)
-			make fclean -sC Libft
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BYellow)"    project fully cleaned!      "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
