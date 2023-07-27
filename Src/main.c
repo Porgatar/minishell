@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/26 22:42:21 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:26:50 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(void)
 	while (1)
 	{
 		e.readline = readline("Minishell❤️ :");
-		printf("%s\n", e.readline);
 		e.tokens = ft_split_to_tokens(e.readline);
 		free(e.readline);
 		if (!e.tokens)

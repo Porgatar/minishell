@@ -6,46 +6,46 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/26 22:40:15 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:37:05 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-/*
-static int	ft_get_word(const char *s, int id, int *start, int *len)
+static int	ft_get_word(const char *s, int id, int *start, int *end)
 {
 	int	i;
 	int	wcount;
 	int	quote;
 
-	i = -1;
+	i = 0;
 	wcount = 0;
-	*start = 0;
-	*len = 0;
-	while (s[++i] && wcount <= id)
+	while (s[i] && wcount <= id)
 	{
 		if ((s[i]) && (s[i] == '"' || s[i] == '\''))
 		{
-			if (wcount == id)
+			if (start && wcount == id)
 				*start = i;
 			quote = s[i++];
 			while (s[i] && s[i] != quote)
 				i++;
-			if (wcount == id)
-				*len = i;
+			i++;
+			if (end && wcount == id)
+				*end = i;
 			wcount++;
 		}
 		else if (s[i] && !is_space(s[i]))
 		{
-			if (wcount == id)
+			if (start && wcount == id)
 				*start = i;
-			while (s[i] && is_space(s[i]))
+			while (s[i] && !is_space(s[i]))
 				i++;
-			if (wcount == id)
-				*len = i;
+			if (end && wcount == id)
+				*end = i;
 			wcount++;
 		}
+		else
+			i++;
 	}
 	if (wcount - 1 == id)
 		return (1);
@@ -54,22 +54,35 @@ static int	ft_get_word(const char *s, int id, int *start, int *len)
 
 char	**ft_split_to_tokens(const char *s)
 {
-	int	i;
-	int	start;
-	int	end;
+	char	**tokens;
+	int		wcount;
+	int		start;
+	int		end;
+	int		i;
 
-	i = 0;
-	while (ft_get_word(s, ++i, &start, &end))
+	wcount = 0;
+	while (ft_get_word(s, wcount, 0, 0))
+		wcount++;
+	tokens = malloc(sizeof(char *) * (wcount + 1));
+	if (!tokens)
+		return (0);
+	tokens[wcount] = 0;
+	i = -1;
+	while (++i < wcount)
 	{
-		printf("start = %d, ", start);
-		printf("end = %d\n", end);
-		printf("i = %d, \"%s\"\n", i, &s[start]);
+		ft_get_word(s, i, &start, &end);
+		tokens[i] = ft_substr(s, start, end - start);
+		if (!tokens[i])
+		{
+			ft_free_2dtab(tokens, i - 1);
+			return (0);
+		}
 	}
-	return (0);
+	return (tokens);
 }
 
-*/
-///*
+/*	-	-	-	-	-	old split to tokens	-	-	-	-	-
+
 static void	ft_wcount(const char *s, int *wcount)
 {
 	int	i;
@@ -209,4 +222,4 @@ char	**ft_split_to_tokens(const char *str)
 	tokens[i] = 0;
 	return (tokens);
 }
-//*/
+*/

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/26 21:53:06 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:26:41 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_env
 
 char	**ft_split_to_tokens(const char *str);
 
-/*	-	-	-	-	main.c		-	-	-	-	*/
+/*	-	-	-	-	utils.c		-	-	-	-	*/
+char	*ft_substr(const char *s, unsigned int start, size_t len);
 void	ft_free_2dtab(char **str, int i);
 int		is_space(char c);
 
