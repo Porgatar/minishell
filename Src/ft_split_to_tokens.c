@@ -6,11 +6,11 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/27 23:37:05 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:54:52 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../minishell.h"
 
 static int	ft_get_word(const char *s, int id, int *start, int *end)
 {

@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 15:54:21 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/28 15:46:21 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/28 15:47:27 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	main(void)
+int	is_space(char c)
 {
-	t_env	e;
-	int		i;
-
-	while (1)
-	{
-		e.readline = readline("Minishell❤️ :");
-		e.tokens = ft_split_to_tokens(e.readline);
-		free(e.readline);
-		if (!e.tokens)
-			return (0);
-		i = 0;
-		while ((e.tokens[i]))
-			printf("%s\n", (e.tokens[i++]));
-		ft_free_2dtab(e.tokens, i);
-	}
+	if ((c > 8 && c < 14) || (c == ' '))
+		return (1);
 	return (0);
 }

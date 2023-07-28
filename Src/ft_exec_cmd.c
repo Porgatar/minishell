@@ -6,9 +6,11 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/25 18:27:40 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:54:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 void	ft_exec_cmd(char **cmd)
 {

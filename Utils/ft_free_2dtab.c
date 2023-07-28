@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_2dtab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 15:54:21 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/28 15:57:14 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/28 15:58:02 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	main(void)
+void	ft_free_2dtab(char **strs, int i)
 {
-	t_env	e;
-	int		i;
-
-	while (1)
+	while (i >= 0)
 	{
-		e.readline = readline("Minishell❤️ :");
-		e.tokens = ft_split_to_tokens(e.readline);
-		free(e.readline);
-		if (!e.tokens)
-			return (0);
-		i = 0;
-		while ((e.tokens[i]))
-			printf("%s\n", (e.tokens[i++]));
-		ft_free_2dtab(e.tokens, i);
+		free(strs[i]);
+		i--;
 	}
-	return (0);
+	free(strs);
 }
