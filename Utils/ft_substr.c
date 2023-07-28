@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 17:29:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/27 23:29:47 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/28 15:44:33 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/28 15:45:21 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../minishell.h"
 
 static size_t	ft_strlen(const char *s)
 {
@@ -59,21 +59,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	ft_strlcpy(dst, &s[start], len + 1);
 	return (dst);
-}
-
-int	is_space(char c)
-{
-	if ((c > 8 && c < 14) || (c == ' '))
-		return (1);
-	return (0);
-}
-
-void	ft_free_2dtab(char **strs, int i)
-{
-	while (i >= 0)
-	{
-		free(strs[i]);
-		i--;
-	}
-	free(strs);
 }
