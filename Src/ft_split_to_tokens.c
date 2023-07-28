@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/27 23:37:05 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:02:33 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static int	ft_get_word(const char *s, int id, int *start, int *end)
 			quote = s[i++];
 			while (s[i] && s[i] != quote)
 				i++;
+			if (!s[i])
+			{
+				printf("%sError: a quote is not closed !%s\n", RED, RESET);
+				return (0);
+			}
 			i++;
 			if (end && wcount == id)
 				*end = i;
@@ -52,6 +57,27 @@ static int	ft_get_word(const char *s, int id, int *start, int *end)
 	return (0);
 }
 
+static char	**ft_init_wcount(const char *s, int *wcount)
+{
+	char	**tokens;
+
+	if (!ft_get_word(s, 2147483647, 0, 0))
+		return (0);
+	*wcount = 0;
+	while (ft_get_word(s, *wcount, 0, 0))
+		*wcount += 1;
+	tokens = malloc(sizeof(char *) * (*wcount + 1));
+	if (!tokens)
+	{
+		printf("%s", RED);
+		perror("tokens spliting");
+		printf("%s", RESET);
+		return (0);
+	}
+	tokens[*wcount] = 0;
+	return (tokens);
+}
+
 char	**ft_split_to_tokens(const char *s)
 {
 	char	**tokens;
@@ -60,13 +86,9 @@ char	**ft_split_to_tokens(const char *s)
 	int		end;
 	int		i;
 
-	wcount = 0;
-	while (ft_get_word(s, wcount, 0, 0))
-		wcount++;
-	tokens = malloc(sizeof(char *) * (wcount + 1));
+	tokens = ft_init_wcount(s, &wcount);
 	if (!tokens)
 		return (0);
-	tokens[wcount] = 0;
 	i = -1;
 	while (++i < wcount)
 	{
@@ -75,6 +97,9 @@ char	**ft_split_to_tokens(const char *s)
 		if (!tokens[i])
 		{
 			ft_free_2dtab(tokens, i - 1);
+			printf("%s", RED);
+			perror("tokens spliting");
+			printf("%s", RESET);
 			return (0);
 		}
 	}
