@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 16:06:54 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/28 19:17:47 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_get_word(const char *s, int id, int *start, int *end)
 			if (!s[i])
 			{
 				printf("%sError: a quote is not closed !%s\n", RED, RESET);
-				return (0);
+				return (-1);
 			}
 			i++;
 			if (end && wcount == id)
@@ -61,7 +61,7 @@ static char	**ft_init_wcount(const char *s, int *wcount)
 {
 	char	**tokens;
 
-	if (!ft_get_word(s, 2147483647, 0, 0))
+	if (ft_get_word(s, 2147483647, 0, 0) == -1)
 		return (0);
 	*wcount = 0;
 	while (ft_get_word(s, *wcount, 0, 0))
