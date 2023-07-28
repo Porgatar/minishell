@@ -6,17 +6,20 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 16:06:29 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/28 19:03:53 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	t_env	e;
 	int		i;
 
+	(void)ac;
+	(void)av;
+	(void)envp;
 	while (1)
 	{
 		e.readline = readline("Minishell❤️ :");
