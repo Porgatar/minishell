@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/31 17:44:15 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:31:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ t_cmd	*ft_parse_to_cmds(const char **tokens)
 
 	cmds = malloc(sizeof(t_cmd));
 	i = 0;
-	while()
+	while(tokens[i])
 	{
-		.
+		if (!cmds)
+			
+		i = ft_init_cmd(tokens[i]);
 	}
 	return ();
 }
