@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 19:03:53 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:59:55 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	t_env	e;
+	char	*line;
+	char	**tokens;
+	t_cmd	*cmds;
 	int		i;
 
 	(void)ac;
@@ -22,9 +24,9 @@ int	main(int ac, char **av, char **envp)
 	(void)envp;
 	while (1)
 	{
-		e.readline = readline("Minishell❤️ :");
-		e.tokens = ft_split_to_tokens(e.readline);
-		free(e.readline);
+		line = readline("Minishell❤️ :");
+		tokens = ft_split_to_tokens(line);
+		free(line);
 		if (e.tokens)
 		{
 			i = 0;

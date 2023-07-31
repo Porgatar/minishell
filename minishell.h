@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 15:39:41 by parinder         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:54:26 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,11 @@
 
 /*	-	-	-	-	Typedefs	-	-	-	-	*/
 
-/*
 typedef struct s_cmd
 {
 	char			**cmd;
 	struct s_cmd	*next;
 }	t_cmd;
-*/
-
-typedef struct s_env
-{
-	char	*readline;
-	char	**tokens;
-}	t_env;
 
 /*	-	-	-	-	main.c		-	-	-	-	*/
 
