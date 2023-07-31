@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
+/*   ft_parse_to_cmds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/31 15:50:41 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/07/31 17:44:15 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exec_cmd(char **cmd)
+t_cmd	*ft_parse_to_cmds(const char **tokens)
 {
-	int	i;
+	t_cmd	*cmds;
+	int		i;
 
+	cmds = malloc(sizeof(t_cmd));
 	i = 0;
-	while (cmd[i])
-		printf("%s, ", cmd[i++]);
-	printf("\n");
+	while()
+	{
+		.
+	}
+	return ();
 }
