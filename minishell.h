@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/31 15:54:26 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:43:50 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 
 /*	-	-	-	-	Defines		-	-	-	-	*/
 
-
 /*	-	-	-	-	Typedefs	-	-	-	-	*/
 
 typedef struct s_cmd
@@ -36,11 +35,15 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-/*	-	-	-	-	main.c		-	-	-	-	*/
+/*	-	-	-	-	main.c	-	-	-	-	-	*/
 
-/*	-	-	ft_split_to_tokens.c		-	-	*/
+/*	-	-	-	ft_split_to_tokens.c	-	-	*/
 
-char	**ft_split_to_tokens(const char *str);
+char	**ft_split_to_tokens(const char *s);
+
+/*	-	-	-	ft_parse_to_cmds.c	-	-	-	*/
+
+t_cmd	*ft_parse_to_cmds(char **tokens);
 
 /*	-	-	-	-	utils_dir	-	-	-	-	*/
 char	*ft_substr(const char *s, unsigned int start, size_t len);
