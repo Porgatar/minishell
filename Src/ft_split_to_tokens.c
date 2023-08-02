@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/01 15:26:04 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:23:01 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	**ft_split_to_tokens(const char *s)
 		tokens[i] = ft_substr(s, start, end - start);
 		if (!tokens[i])
 		{
-			ft_free_2dtab(tokens, i - 1);
+			ft_free_2dtab(tokens);
 			printf("%sError: not enough memory%s\n", RED, RESET);
 			return (0);
 		}
