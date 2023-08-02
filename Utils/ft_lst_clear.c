@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2dtab.c                                    :+:      :+:    :+:   */
+/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 15:57:14 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 11:20:45 by parinder         ###   ########.fr       */
+/*   Created: 2023/08/02 09:56:57 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/08/02 11:14:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_2dtab(char **strs)
+void	ft_lstclear(t_cmd **cmds)
 {
-	int	i;
+	t_cmd	*tmp;
 
-	i = 0;
-	while (strs[i])
+	if (!cmds)
+		return ;
+	tmp = *cmds;
+	while (*cmds)
 	{
-		free(strs[i]);
-		i++;
+		ft_free_2dtab(*cmds->cmd);
+		*cmds = *cmds->next;
+		free(tmp);
+		tmp = *cmds;
 	}
-	free(strs);
 }

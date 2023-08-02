@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2dtab.c                                    :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 15:57:14 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 11:20:45 by parinder         ###   ########.fr       */
+/*   Created: 2023/08/02 10:06:51 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/08/02 10:09:51 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_2dtab(char **strs)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && i < n - 1 && s1[i] == s2[i])
 		i++;
-	}
-	free(strs);
+	return ((unsigned char)s1[i] - s2[i]);
 }

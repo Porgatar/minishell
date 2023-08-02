@@ -6,15 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/01 16:03:48 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:22:15 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	ft_get_cmd(char **tokens)
+static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 {
-	if (**tokens == )
+	if (!ft_strncmp(**tokens, "", ) || )
 	return (0);
 }
 
@@ -32,7 +32,7 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 		if (!cmds)
 		{
 			printf("%sError: not enough memory%s\n", RED, RESET);
-			ft_lst_clear(first_cmd);
+			ft_lst_clear(&first_cmd);
 			return (0);
 		}
 		i += ft_get_cmd(&tokens[i], &cmds);
