@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 11:21:43 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:49:20 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_cmd
 
 /*	-	-	-	ft_split_to_tokens.c	-	-	*/
 
-char	**ft_split_to_tokens(const char *s);
+char	**ft_split_to_tokens(char *s);
 
 /*	-	-	-	ft_parse_to_cmds.c	-	-	-	*/
 
