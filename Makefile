@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/08/01 14:12:28 by parinder         ###   ########.fr        #
+#    Updated: 2023/08/02 10:13:34 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,18 @@ SRC=		Src/main.c \
 			Src/ft_parse_to_cmds.c \
 			Utils/ft_substr.c \
 			Utils/is_space.c \
-			Utils/ft_free_2dtab.c
+			Utils/ft_free_2dtab.c \
+			Utils/ft_lst_clear.c \
+			Utils/ft_strncmp.c
 
 BSRC=		Src/main_bonus.c \
 			Src/ft_split_to_tokens.c \
 			Src/ft_parse_to_cmds.c \
 			Utils/ft_substr.c \
 			Utils/is_space.c \
-			Utils/ft_free_2dtab.c
+			Utils/ft_free_2dtab.c \
+			Utils/ft_lst_clear.c \
+			Utils/ft_strncmp.c
 
 all:		$(NAME)
 

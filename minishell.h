@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/01 15:43:50 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:21:43 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 /*	-	-	-	-	utils_dir	-	-	-	-	*/
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-void	ft_free_2dtab(char **str, int i);
+void	ft_free_2dtab(char **str);
 int		is_space(char c);
+void	ft_lst_clear(t_cmd **cmds);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
