@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 13:24:00 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:26:22 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static void	print_list(t_cmd *cmds)
 	{
 		i = 0;
 		while (cmd->cmd[i])
-			printf("%s, ", cmd->cmd[i]);
+		{
+			if (cmd->cmd[i])
+				printf("%s, ", cmd->cmd[i]);
+			i++;
+		}
 		printf("\n");
 		cmd = cmd->next;
 	}
@@ -55,9 +59,12 @@ int	main(int ac, char **av, char **envp)
 				exit(0);
 			}
 			cmds = ft_parse_to_cmds(tokens);
-			ft_free_2dtab(tokens);
+			free(tokens);
 			if (cmds)
+			{
 				print_list(cmds);
+				ft_lst_clear(&cmds);
+			}
 		}
 	}
 	return (0);

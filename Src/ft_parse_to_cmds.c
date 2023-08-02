@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 13:44:11 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:01:26 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 	int	j;
 
 	i = 0;
-	while (tokens[i] && (tokens[i][0] == '|' || tokens[i][0] == '<' || tokens[i][0] == '>'))
+	while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '<' && tokens[i][0] != '>')
 		i++;
-	(*cmds)->cmd = malloc(sizeof(char) * (i + 1));
-	(*cmds)->cmd[i] = 0;
+	if (tokens[0][0] == '<' || tokens[0][0] == '>')
+		i = 2;
+	else if (tokens[0][0] == '|')
+		i = 1;
+	(*cmds)->cmd = malloc(sizeof(char *) * (i + 1));
 	j = 0;
 	while (j < i)
 	{
 		(*cmds)->cmd[j] = tokens[j];
 		j++;
 	}
+	(*cmds)->cmd[j] = 0;
 	return (i);
 }
 
@@ -55,5 +59,6 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 			cmds = cmds->next;
 		}
 	}
+	cmds->next = 0;
 	return (first_cmd);
 }
