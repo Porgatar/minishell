@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/01 16:03:25 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:24:00 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	main(int ac, char **av, char **envp)
 			if (tokens[0][0] == 'e' && tokens[0][1] == 'x' \
 			&& tokens[0][2] == 'i' && tokens[0][3] == 't')
 			{
-				ft_free_2dtab(tokens, i);
+				ft_free_2dtab(tokens);
 				exit(0);
 			}
-			ft_free_2dtab(tokens, i);
+			cmds = ft_parse_to_cmds(tokens);
+			ft_free_2dtab(tokens);
+			if (cmds)
+				print_list(cmds);
 		}
-		cmds = ft_parse_to_cmds(tokens);
-		if (cmds)
-			print_list(cmds);
 	}
 	return (0);
 }
