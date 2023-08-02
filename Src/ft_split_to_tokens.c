@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 13:23:01 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:40:15 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**ft_init_wcount(const char *s, int *wcount)
 	return (tokens);
 }
 
-char	**ft_split_to_tokens(const char *s)
+char	**ft_split_to_tokens(char *s)
 {
 	char	**tokens;
 	int		wcount;
@@ -113,5 +113,6 @@ char	**ft_split_to_tokens(const char *s)
 			return (0);
 		}
 	}
+	free(s);
 	return (tokens);
 }
