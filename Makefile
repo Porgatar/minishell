@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/08/02 10:13:34 by parinder         ###   ########.fr        #
+#    Updated: 2023/08/04 15:53:52 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,28 +14,16 @@ MAKEFLAGS=	--silent
 
 NAME=		minishell
 
-BNAME=		minishell_bonus
-
 CC=			gcc
 
 CFLAGS=		-Wall -Werror -Wextra -g
 
 OBJ=		$(SRC:.c=.o)
 
-BOBJ=		$(BSRC:.c=.o)
-
 SRC=		Src/main.c \
 			Src/ft_split_to_tokens.c \
 			Src/ft_parse_to_cmds.c \
-			Utils/ft_substr.c \
-			Utils/is_space.c \
-			Utils/ft_free_2dtab.c \
-			Utils/ft_lst_clear.c \
-			Utils/ft_strncmp.c
-
-BSRC=		Src/main_bonus.c \
-			Src/ft_split_to_tokens.c \
-			Src/ft_parse_to_cmds.c \
+			Src/ft_expand_and_redirect.c \
 			Utils/ft_substr.c \
 			Utils/is_space.c \
 			Utils/ft_free_2dtab.c \
@@ -44,35 +32,27 @@ BSRC=		Src/main_bonus.c \
 
 all:		$(NAME)
 
-bonus:		$(BNAME)
-
 $(NAME):	$(OBJ)
 			$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BGreen)"       project compiled!        "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
-$(BNAME):	$(BOBJ)
-			$(CC) $(CFLAGS) $(BOBJ) -o $(BNAME)
-			echo $(On_IGreen)"                                 "$(Color_Off)
-			echo $(On_IGreen)$(BGreen)"        bonus compiled!         "$(Color_Off)
-			echo $(On_IGreen)"                                 "$(Color_Off)
-
 clean:
-			rm -f $(OBJ) $(BOBJ)
+			rm -f $(OBJ)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BYellow)"       objects cleaned!         "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
 fclean:		clean
-			rm -f $(NAME) $(BNAME)
+			rm -f $(NAME)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 			echo $(On_IGreen)$(BYellow)"    project fully cleaned!      "$(Color_Off)
 			echo $(On_IGreen)"                                 "$(Color_Off)
 
 re:			fclean all
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all clean fclean re
 
 #	-	-	-	-	-	Colors	-	-	-	-	-	-	#
 #														|
