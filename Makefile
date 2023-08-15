@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/08/04 15:53:52 by parinder         ###   ########.fr        #
+#    Updated: 2023/08/14 13:53:53 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,13 @@ SRC=		Src/main.c \
 			Src/ft_split_to_tokens.c \
 			Src/ft_parse_to_cmds.c \
 			Src/ft_expand_and_redirect.c \
+			Src/ft_env_var.c \
 			Utils/ft_substr.c \
 			Utils/is_space.c \
 			Utils/ft_free_2dtab.c \
 			Utils/ft_lst_clear.c \
-			Utils/ft_strncmp.c
+			Utils/ft_strncmp.c \
+			Utils/ft_strlen.c
 
 all:		$(NAME)
 

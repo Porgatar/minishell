@@ -6,12 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 17:01:26 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:48:14 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+	copies and return the number of token for the current cmd.
+*/
 static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 {
 	int	i;
@@ -35,6 +38,9 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 	return (i);
 }
 
+/*
+	the purpose of this function is to parse the tokens into a chained list of simple and compund commands.
+*/
 t_cmd	*ft_parse_to_cmds(char **tokens)
 {
 	t_cmd	*first_cmd;
@@ -49,7 +55,7 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 		if (!cmds)
 		{
 			printf("%sError: not enough memory%s\n", RED, RESET);
-			ft_lst_clear(&first_cmd);
+			ft_cmd_clear(&first_cmd);
 			return (0);
 		}
 		i += ft_get_cmd(&tokens[i], &cmds);
