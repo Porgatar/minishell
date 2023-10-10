@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/15 20:00:22 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:58:25 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_cmd
 
 typedef struct s_env
 {
-	char			*name;
+	char			*key;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
@@ -58,7 +58,7 @@ void	ft_expand_and_redirect(t_cmd *cmds, int redirection[2], t_env *env);
 
 /*	-	-	-	ft_env_var.c	-	-	-	-	*/
 
-char	*ft_get_env_var(t_env *env, const char *to_find);
+char	*ft_get_env_value(t_env *env, const char *key);
 t_env	*ft_index_env(char **envp);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/

@@ -6,15 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/15 20:16:16 by parinder         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:59:03 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_get_env_var(t_env *env, const char *to_find)
+char	*ft_get_env_value(t_env *env, const char *key)
 {
-	while (env && ft_strncmp(env->name, to_find, ft_strlen(env->name) + 1))
+	while (env && ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
 		env = env->next;
 	if (env)
 		return (env->value);
