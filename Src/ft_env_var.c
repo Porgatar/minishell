@@ -6,19 +6,17 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/29 13:59:03 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:28:19 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_get_env_value(t_env *env, const char *key)
+t_env	*ft_get_env_value(t_env *env, const char *key)
 {
 	while (env && ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
 		env = env->next;
-	if (env)
-		return (env->value);
-	return (0);
+	return (env);
 }
 
 static void	ft_envcpy(const char *var, char **name, char **value)
