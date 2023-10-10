@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/15 20:33:57 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:12:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	print_env(t_env *cmds)
 	cmd = cmds;
 	while (cmd)
 	{
-		printf("%s", cmd->name);
+		printf("%s", cmd->key);
 		printf("=%s", cmd->value);
 		printf("\n");
 		cmd = cmd->next;
