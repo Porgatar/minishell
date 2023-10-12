@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/10 17:28:19 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:39:09 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_env	*ft_index_env(char **envp)
 			ft_env_clear(&first_var);
 			return (0);
 		}
-		ft_envcpy(envp[i], &env->name, &env->value);
+		ft_envcpy(envp[i], &env->key, &env->value);
 		i++;
 		if (envp[i])
 		{

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/10 17:38:05 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:00:18 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_expand	*ft_get_expand(const char *s, int quote, t_env *env)
 	char		*key;
 	int			i;
 
-	*expand = malloc(sizeof(t_expand));
+	expand = malloc(sizeof(t_expand));
 	i = 0;
 	while (s[i] && !is_space(s[i]) && s[i] != quote)
 		i++;
@@ -29,7 +29,7 @@ static t_expand	*ft_get_expand(const char *s, int quote, t_env *env)
 
 static t_expand	*ft_get_to_expand(const char *s, t_env *env)
 {
-	t_expand	**expanded;
+	t_expand	*expanded;
 	t_expand	*first;
 	int			i;
 	int			quote;
@@ -43,10 +43,16 @@ static t_expand	*ft_get_to_expand(const char *s, t_env *env)
 			quote = s[i];
 		else if (s[i] && s[i] != '$' && quote != '\'')
 		{
-			*expanded = ft_get_expand(&s[i], quote, env);
 			if (!first)
-				first = *expanded;
-			expanded = &(*expanded)->next;
+			{
+				expanded = ft_get_expand(&s[i], quote, env);
+				first = expanded;
+			}
+			else
+			{
+				expanded->next = ft_get_expand(&s[i], quote, env);
+				expanded = expanded->next;
+			}
 		}
 		else if (s[i] && s[i] == quote)
 			quote = 0;
@@ -96,7 +102,8 @@ static char	*ft_expand_str(char *s, t_env *env)
 	to_expand = ft_get_to_expand(s, env);
 	while (to_expand)
 	{
-		printf("key = %s, value = %s\n", to_expand->env->key, to_expand->env->value);
+		if (to_expand->env)
+			printf("key = %s, value = %s\n", to_expand->env->key, to_expand->env->value);
 		to_expand = to_expand->next;
 	}
 //	expanded_len = ft_expanded_str_len(s, env);

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 09:56:57 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/15 20:13:04 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:39:43 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env_clear(t_env **lst)
 	while (*lst)
 	{
 		*lst = (*lst)->next;
-		free(tmp->name);
+		free(tmp->key);
 		free(tmp->value);
 		free(tmp);
 		tmp = *lst;
