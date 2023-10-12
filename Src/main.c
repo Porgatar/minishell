@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/10 16:12:11 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:17:17 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@ static void	print_list(t_cmd *cmds)
 		while (cmd->cmd[i])
 		{
 			if (cmd->cmd[i])
+			{
+				if (cmd->cmd[i][0] == '|')
+					printf("\n");
 				printf("%s, ", cmd->cmd[i]);
+				if (cmd->cmd[i][0] == '|')
+					printf("\n");
+			}
 			i++;
 		}
 		printf("\n");
