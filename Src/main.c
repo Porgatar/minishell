@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/12 16:17:17 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:56:07 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	print_tab(char **tokens, t_env *env)
 	&& tokens[0][2] == 'i' && tokens[0][3] == 't')
 	{
 		ft_free_2dtab(tokens);
-		ft_env_clear(&env);
+		ft_env_clear(env);
 		exit(0);
 	}
 }
@@ -60,7 +60,7 @@ static void	print_env(t_env *cmds)
 {
 	t_env	*cmd;
 
-	printf("%s\nenv:\n%s", RED, RESET);
+	printf("%s\nenv:%s\n", RED, RESET);
 	cmd = cmds;
 	while (cmd)
 	{
@@ -96,10 +96,10 @@ int	main(int ac, char **av, char **envp)
 				print_list(cmds);
 				ft_expand_and_redirect(cmds, redirection, env);
 				print_list(cmds);
-				ft_cmd_clear(&cmds);
+				ft_cmd_clear(cmds);
 			}
 		}
 	}
-	ft_env_clear(&env);
+	ft_env_clear(env);
 	return (0);
 }

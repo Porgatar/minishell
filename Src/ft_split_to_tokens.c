@@ -6,14 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:54:29 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/08 18:28:16 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:07:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-	this function represente the loop in ft_get_word, it is needed to split the tokens and the special chars
+	this function represente the loop in ft_get_word,
+	it is needed to split the tokens and the special chars
 */
 static int	ft_in_loop(const char *s, int i)
 {
@@ -44,8 +45,10 @@ static int	ft_in_loop(const char *s, int i)
 }
 
 /*
-	this fuction set respectively the pointer '*start' and '*end' to the start and end of the found token.
-	return 1 on succes, 0 when the token 'id' has been not found and -1 if a non closed quote is detected.
+	this fuction set respectively the pointer '*start' and '*end'
+	to the start and end of the found token.
+	return 1 on succes, 0 when the token 'id' has been not found and
+	-1 if a non closed quote is detected.
 */
 static int	ft_get_word(const char *s, int id, int *start, int *end)
 {
@@ -101,11 +104,12 @@ static char	**ft_init_wcount(const char *s, int *wcount)
 }
 
 /*
-	the purpose of this function is to split 's' into tokens(*see below) with the help of all the above static functions.
+	the purpose of this function is to split 's' into "tokens"(*see below)
+	with the help of all the above static functions.
 	return a pointer on the splited tab or 0 if any error occurs.
 
 	*	tokens
-		can be a arbitrary number of char seperated by whitespace or between quotes.
+		can be an arbitrary number of char seperated by whitespace or between quotes.
 */
 char	**ft_split_to_tokens(char *s)
 {
