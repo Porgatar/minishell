@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/14 14:48:14 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:10:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 	int	j;
 
 	i = 0;
-	while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '<' && tokens[i][0] != '>')
+	while (tokens[i] && tokens[i][0] != '|' \
+	&& tokens[i][0] != '<' && tokens[i][0] != '>')
 		i++;
 	if (tokens[0][0] == '<' || tokens[0][0] == '>')
 		i = 2;
@@ -39,7 +40,8 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 }
 
 /*
-	the purpose of this function is to parse the tokens into a chained list of simple and compund commands.
+	the purpose of this function is to parse the tokens into
+	a chained list of simple and compund commands.
 */
 t_cmd	*ft_parse_to_cmds(char **tokens)
 {
@@ -50,12 +52,12 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 	cmds = malloc(sizeof(t_cmd));
 	first_cmd = cmds;
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 	{
 		if (!cmds)
 		{
 			printf("%sError: not enough memory%s\n", RED, RESET);
-			ft_cmd_clear(&first_cmd);
+			ft_cmd_clear(first_cmd);
 			return (0);
 		}
 		i += ft_get_cmd(&tokens[i], &cmds);

@@ -6,16 +6,20 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/12 13:39:09 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:01:13 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*ft_get_env_value(t_env *env, const char *key)
+t_env	*ft_get_env_value(const char *key, t_env *env)
 {
-	while (env && ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
+	while (env)
+	{
+		if (env->key && !ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
+			break ;
 		env = env->next;
+	}
 	return (env);
 }
 
@@ -43,7 +47,7 @@ t_env	*ft_index_env(char **envp)
 	{
 		if (!env)
 		{
-			ft_env_clear(&first_var);
+			ft_env_clear(first_var);
 			return (0);
 		}
 		ft_envcpy(envp[i], &env->key, &env->value);
@@ -55,5 +59,5 @@ t_env	*ft_index_env(char **envp)
 		}
 	}
 	env->next = 0;
-	return(first_var);
+	return (first_var);
 }
