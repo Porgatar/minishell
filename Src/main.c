@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/23 17:56:07 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:59:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int ac, char **av, char **envp)
 	char	**tokens;
 	t_cmd	*cmds;
 	t_env	*env;
-	int		redirection[2];
 
 	(void)ac;
 	(void)av;
@@ -94,7 +93,7 @@ int	main(int ac, char **av, char **envp)
 			if (cmds)
 			{
 				print_list(cmds);
-				ft_expand_and_redirect(cmds, redirection, env);
+				ft_expand_and_redirect(cmds, env);
 				print_list(cmds);
 				ft_cmd_clear(cmds);
 			}
