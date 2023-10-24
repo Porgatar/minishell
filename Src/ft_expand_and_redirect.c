@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 17:11:35 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:18:00 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,33 @@ static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 	return (first);
 }
 
-static char	*ft_expand_str(char *to_expand, t_expand *expand, int len)
+static char	*ft_expand_str(char *str, t_expand *expand, int len)
 {
-	char	*expanded;
-	int		i;
-	int		copied;
+	char		*expanded;
+	int			i;
+	int			quote;
+	t_expand	*tmp;
 
 	expanded = malloc(sizeof(char) * (len + 1));
 	i = 0;
-	while (to_expand[i])
+	len = 0;
+	quote = 0;
+	while (str[i])
 	{
-		if (!quote && s[i] && (s[i] == '"' || s[i] == '\''))
-			quote = s[i++];
-		else if (s[i] && s[i] == '$' && quote != '\'')
+		if (!quote && str[i] && (str[i] == '"' || str[i] == '\''))
+			quote = str[i++];
+		else if (str[i] && str[i] == '$' && quote != '\'')
 		{
-			while ()
+			while (str[i] && !is_space(str[i]) && str[i] != '\'' && str[i] != '"')
 				i++;
+			tmp = expand;
+			expanded[len] = 0;
+			len = ft_strlcat(expanded, expand->env->value, 2147483647);
+			expand = expand->next;
+			free(tmp);
 		}
 	}
+	free(str);
 	return (expanded);
 }
 
@@ -113,7 +122,7 @@ void	ft_expand_and_redirect(t_cmd *cmds, t_env *env)
 		while (cmds->cmd[i])
 		{
 			to_expand = ft_get_to_expand(cmds->cmd[i], &len, env);
-			ft_expand_str(cmds->cmd[i], to_expand);
+			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], to_expand, len);
 //			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], env);
 			i++;
 		}
