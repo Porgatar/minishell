@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/08/14 13:53:53 by parinder         ###   ########.fr        #
+#    Updated: 2023/10/25 16:15:55 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC=		Src/main.c \
 			Src/ft_expand_and_redirect.c \
 			Src/ft_env_var.c \
 			Utils/ft_substr.c \
+			Utils/ft_strlcpy.c \
 			Utils/is_space.c \
 			Utils/ft_free_2dtab.c \
 			Utils/ft_lst_clear.c \

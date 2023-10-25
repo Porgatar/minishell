@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 18:18:00 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:05:49 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static t_expand	*ft_get_expand(const char *s, t_env *env)
 	if (s[i] == '"' || s[i] == '\'')
 		i--;
 	key = ft_substr(s, 1, i);
-	printf("key = %s\n", key);
 	expand->env = ft_get_env_value(key, env);
 	free(key);
 	return (expand);
@@ -63,7 +62,7 @@ static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 				*len += ft_strlen(expanded->env->value) - 1;
 				expanded = expanded->next;
 			}
-			while (s[i] && !is_space(s[i]) && s[i] != quote)
+			while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
 				i++;
 			i--;
 		}
@@ -80,7 +79,7 @@ static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 	return (first);
 }
 
-static char	*ft_expand_str(char *str, t_expand *expand, int len)
+static char	*ft_expand_str(char *s, t_expand *expand, int len)
 {
 	char		*expanded;
 	int			i;
@@ -91,22 +90,33 @@ static char	*ft_expand_str(char *str, t_expand *expand, int len)
 	i = 0;
 	len = 0;
 	quote = 0;
-	while (str[i])
+	while (s[i])
 	{
-		if (!quote && str[i] && (str[i] == '"' || str[i] == '\''))
-			quote = str[i++];
-		else if (str[i] && str[i] == '$' && quote != '\'')
+		if (!quote && s[i] && (s[i] == '"' || s[i] == '\''))
+			quote = s[i++];
+		else if (s[i] && s[i] == '$' && quote != '\'')
 		{
-			while (str[i] && !is_space(str[i]) && str[i] != '\'' && str[i] != '"')
+			while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
 				i++;
 			tmp = expand;
-			expanded[len] = 0;
-			len = ft_strlcat(expanded, expand->env->value, 2147483647);
+			len += ft_strlcpy(&expanded[len], expand->env->value, 2147483647);
 			expand = expand->next;
 			free(tmp);
 		}
+		else if (s[i] && s[i] == quote)
+		{
+			quote = 0;
+			i++;
+		}
+		else
+		{
+			expanded[len] = s[i];
+			len++;
+			i++;
+			expanded[len] = 0;
+		}
 	}
-	free(str);
+	free(s);
 	return (expanded);
 }
 
@@ -123,7 +133,6 @@ void	ft_expand_and_redirect(t_cmd *cmds, t_env *env)
 		{
 			to_expand = ft_get_to_expand(cmds->cmd[i], &len, env);
 			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], to_expand, len);
-//			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], env);
 			i++;
 		}
 		cmds = cmds->next;
