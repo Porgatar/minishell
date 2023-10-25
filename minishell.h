@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 13:59:57 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:15:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_env	*ft_index_env(char **envp);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 char	*ft_substr(const char *s, unsigned int start, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_free_2dtab(char **str);
 int		is_space(char c);
 void	ft_env_clear(t_env *lst);

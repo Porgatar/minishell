@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 13:59:37 by parinder         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:08:56 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static void	print_tab(char **tokens, t_env *env)
 	}
 }
 
-static void	print_list(t_cmd *cmds)
+static void	print_list(t_cmd *cmds, char *s)
 {
 	t_cmd	*cmd;
 	int		i;
 
-	printf("%s\n**cmds:\n%s", RED, RESET);
+	printf("%s\n%s\n%s", RED, s, RESET);
 	cmd = cmds;
 	while (cmd)
 	{
@@ -92,9 +92,9 @@ int	main(int ac, char **av, char **envp)
 			free(tokens);
 			if (cmds)
 			{
-				print_list(cmds);
+				print_list(cmds, "**cmds(one pipe per line)");
 				ft_expand_and_redirect(cmds, env);
-				print_list(cmds);
+				print_list(cmds, "**expanded_cmds(one pipe per line)");
 				ft_cmd_clear(cmds);
 			}
 		}
