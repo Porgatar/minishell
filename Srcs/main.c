@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/25 19:08:56 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:06:55 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ static void	print_env(t_env *cmds)
 	}
 	printf("\n");
 }
+
+/*
+static void	exec_pipeline()
+{
+	while ()
+}
+*/
 
 int	main(int ac, char **av, char **envp)
 {
