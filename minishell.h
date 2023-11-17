@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/25 16:15:40 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:21:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define RESET	"\033[0m"
 
 /*	-	-	-	Defines	-	-	-	-	-	-	*/
+
+# define BUILTINS_NUMBER 2
 
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
@@ -69,7 +71,10 @@ void	ft_expand_and_redirect(t_cmd *cmds, t_env *env);
 t_env	*ft_get_env_value(const char *key, t_env *env);
 t_env	*ft_index_env(char **envp);
 
+/*	-	-	-	builtins dir	-	-	-	-	*/
+
 /*	-	-	-	utils dir	-	-	-	-	-	*/
+
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_free_2dtab(char **str);
