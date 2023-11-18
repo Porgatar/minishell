@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/18 17:13:43 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:36:55 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*find_path(char *path, char *cmd)
 	origin_path[path_size - 1] = '/';
 	origin_path[path_size] = '\0';
 	ft_strlcpy(&origin_path[path_size], cmd, cmd_size);
-	printf("path = \"%s\"", origin_path);
+	printf("path = \"%s\"\n", origin_path);
 	return (origin_path);
 }
 

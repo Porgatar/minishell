@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/18 17:28:33 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:33:19 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 /*	-	-	-	ft_expand_cmds.c	-	-	-	*/
 
-void	ft_expand_and_redirect(t_cmd *cmds, t_env *env);
+void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_exec_cmd.c	-	-	-	-	*/
 
