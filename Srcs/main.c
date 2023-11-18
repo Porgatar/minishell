@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/17 15:06:55 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:22:44 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	main(int ac, char **av, char **envp)
 				ft_expand_and_redirect(cmds, env);
 				print_list(cmds, "**expanded_cmds(one pipe per line)");
 				ft_cmd_clear(cmds);
+				ft_exec_cmd(cmds->cmd, env);
 			}
 		}
 	}

@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_space.c                                         :+:      :+:    :+:   */
+/*   ft_free_2dtab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 15:46:21 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/07/28 15:47:27 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/28 15:57:14 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/11/18 16:37:09 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	is_space(char c)
+void	ft_free_2dtab(char **strs)
 {
-	if ((c > 8 && c < 14) || (c == ' '))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
 }
