@@ -6,11 +6,11 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 00:01:13 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:58:41 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 t_env	*ft_get_env_value(const char *key, t_env *env)
 {

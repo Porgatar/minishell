@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/11/17 15:08:50 by parinder         ###   ########.fr        #
+#    Updated: 2023/11/18 16:36:46 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,17 @@ OBJ=		$(SRCS:.c=.o)
 SRCS=		Srcs/main.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
-			Srcs/ft_expand_and_redirect.c \
-			Srcs/ft_env_var.c \
-			Utils/ft_substr.c \
-			Utils/ft_strlcpy.c \
-			Utils/is_space.c \
-			Utils/ft_free_2dtab.c \
-			Utils/ft_lst_clear.c \
-			Utils/ft_strncmp.c \
-			Utils/ft_strlen.c
+			Srcs/ft_expand_cmds.c \
+			Srcs/ft_exec_cmd.c \
+			Srcs/Builtins/ft_env_var.c \
+			Srcs/Utils/ft_split.c \
+			Srcs/Utils/ft_substr.c \
+			Srcs/Utils/ft_strlcpy.c \
+			Srcs/Utils/is_space.c \
+			Srcs/Utils/ft_free_2dtab.c \
+			Srcs/Utils/ft_lst_clear.c \
+			Srcs/Utils/ft_strncmp.c \
+			Srcs/Utils/ft_strlen.c
 
 all:		$(NAME)
 

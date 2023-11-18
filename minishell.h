@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/17 15:21:40 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:09:29 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 
 /*	-	-	-	PrintColors	-	-	-	-	-	*/
 
@@ -66,15 +71,20 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 void	ft_expand_and_redirect(t_cmd *cmds, t_env *env);
 
-/*	-	-	-	ft_env_var.c	-	-	-	-	*/
+/*	-	-	-	ft_expand_and_redirect.c	-	*/
 
-t_env	*ft_get_env_value(const char *key, t_env *env);
-t_env	*ft_index_env(char **envp);
+void	ft_exec_cmd(char **cmd, t_env *env);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
+
+//	-	ft_env_var.c
+t_env	*ft_get_env_value(const char *key, t_env *env);
+t_env	*ft_index_env(char **envp);
+
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 
+char	**ft_split(const char *s, char c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_free_2dtab(char **str);

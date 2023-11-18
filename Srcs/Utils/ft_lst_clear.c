@@ -1,26 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2dtab.c                                    :+:      :+:    :+:   */
+/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 15:57:14 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 11:20:45 by parinder         ###   ########.fr       */
+/*   Created: 2023/08/02 09:56:57 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/11/18 16:37:20 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	ft_free_2dtab(char **strs)
+void	ft_env_clear(t_env *lst)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 0;
-	while (strs[i])
+	if (!lst)
+		return ;
+	tmp = lst;
+	while (lst)
 	{
-		free(strs[i]);
-		i++;
+		lst = lst->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		tmp = lst;
 	}
-	free(strs);
+}
+
+void	ft_cmd_clear(t_cmd *lst)
+{
+	t_cmd	*tmp;
+
+	if (!lst)
+		return ;
+	tmp = lst;
+	while (lst)
+	{
+		ft_free_2dtab(lst->cmd);
+		lst = lst->next;
+		free(tmp);
+		tmp = lst;
+	}
 }

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 13:47:45 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/14 13:55:07 by parinder         ###   ########.fr       */
+/*   Created: 2023/07/28 15:46:21 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/11/18 16:38:17 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-size_t	ft_strlen(const char *s)
+int	is_space(char c)
 {
-	size_t	i;
-
-	i = 0;
-	if (s)
-		while (s[i])
-			i++;
-	return (i);
+	if ((c > 8 && c < 14) || (c == ' '))
+		return (1);
+	return (0);
 }

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
+/*   By: luhego & parinder                          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 10:06:51 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/08/02 10:09:51 by parinder         ###   ########.fr       */
+/*   Created: 2023/10/25 16:12:56 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/11/18 16:37:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
+	size_t	src_len;
 
+	src_len = ft_strlen(src);
+	if (size == 0)
+		return (src_len);
 	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && i < n - 1 && s1[i] == s2[i])
+	while (src[i] && i < size - 1)
+	{
+		dst[i] = src[i];
 		i++;
-	return ((unsigned char)s1[i] - s2[i]);
+	}
+	dst[i] = 0;
+	return (src_len);
 }

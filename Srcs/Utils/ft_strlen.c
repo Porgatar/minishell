@@ -1,46 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 09:56:57 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/23 17:54:57 by parinder         ###   ########.fr       */
+/*   Created: 2023/08/14 13:47:45 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/11/18 16:37:51 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	ft_env_clear(t_env *lst)
+size_t	ft_strlen(const char *s)
 {
-	t_env	*tmp;
+	size_t	i;
 
-	if (!lst)
-		return ;
-	tmp = lst;
-	while (lst)
-	{
-		lst = lst->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		tmp = lst;
-	}
-}
-
-void	ft_cmd_clear(t_cmd *lst)
-{
-	t_cmd	*tmp;
-
-	if (!lst)
-		return ;
-	tmp = lst;
-	while (lst)
-	{
-		ft_free_2dtab(lst->cmd);
-		lst = lst->next;
-		free(tmp);
-		tmp = lst;
-	}
+	i = 0;
+	if (s)
+		while (s[i])
+			i++;
+	return (i);
 }
