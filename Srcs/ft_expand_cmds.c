@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_and_redirect.c                           :+:      :+:    :+:   */
+/*   ft_expand_cmds.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/31 18:02:52 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:26:44 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static char	*ft_expand_str(char *s, t_expand *expand, int len)
 	return (expanded);
 }
 
-void	ft_expand_and_redirect(t_cmd *cmds, t_env *env)
+void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 {
 	int			i;
 	int			len;
