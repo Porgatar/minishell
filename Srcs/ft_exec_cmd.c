@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/18 17:36:55 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:02:56 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ static char	*get_path(t_env *env, char *cmd)
 	return (NULL);
 }
 
-/* - - - this function execute the cmd that he receive - - - */
+/* - - - this function execute the cmd she receive - - - */
 
-void	ft_exec_cmd(char **cmd, t_env *env)
+static void	ft_exec_cmd(char **cmd, t_env *env)
 {
 	char	*path;
 
@@ -90,4 +90,29 @@ void	ft_exec_cmd(char **cmd, t_env *env)
 	}
 	execve(cmd[0], &cmd[0], 0);
 	ft_free_2dtab(cmd);
+}
+
+void	ft_(t_cmd cmd, t_env *env)
+{
+	int	i;
+
+	while (cmd)
+	{
+		i = 0;
+		while (cmd->cmd[i])
+		{
+			if (!strncmp(cmd->cmd[i], "<", 2))
+				cmd->fd_in = open(cmd->cmd[i + 1], O_RDONLY);
+			else if (!strncmp(cmd->cmd[i], ">", 2))
+				cmd->fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 00644);
+			else if (!strncmp(cmd->cmd[i], "<<", 3))
+				cmd->fd_in = open(cmd->cmd[i + 1], O_RDONLY);
+			else if (!strncmp(cmd->cmd[i], ">>", 3))
+				cmd->fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_APPEND | O_CREAT, 00644);
+			else
+				ft_exec_cmd(cmd->cmd);
+			i++;
+		}
+		cmd = cmd->next;
+	}
 }
