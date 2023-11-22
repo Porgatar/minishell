@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/20 18:02:56 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:46:31 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*get_path(t_env *env, char *cmd)
 
 /* - - - this function execute the cmd she receive - - - */
 
-static void	ft_exec_cmd(char **cmd, t_env *env)
+void	ft_exec_cmd(char **cmd, t_env *env)
 {
 	char	*path;
 
@@ -91,8 +91,8 @@ static void	ft_exec_cmd(char **cmd, t_env *env)
 	execve(cmd[0], &cmd[0], 0);
 	ft_free_2dtab(cmd);
 }
-
-void	ft_(t_cmd cmd, t_env *env)
+/*
+void	ft_check_redirect(t_cmd cmd, t_env *env)
 {
 	int	i;
 
@@ -115,4 +115,4 @@ void	ft_(t_cmd cmd, t_env *env)
 		}
 		cmd = cmd->next;
 	}
-}
+}*/
