@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/22 18:50:04 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:37:36 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_cmd
 	char			**cmd;
 	int				fd_in;
 	int				fd_out;
+	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -91,6 +92,7 @@ void	ft_free_2dtab(char **str);
 int		is_space(char c);
 void	ft_env_clear(t_env *lst);
 void	ft_cmd_clear(t_cmd *lst);
+void	ft_rollback_lst(t_cmd **cmds);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 

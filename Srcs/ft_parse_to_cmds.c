@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/10/24 00:10:40 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:39:02 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	copies and return the number of token for the current cmd.
 */
-static int	ft_get_cmd(char **tokens, t_cmd **cmds)
+static int	ft_get_cmd(char **tokens, t_cmd **cmds, t_cmd *prev)
 {
 	int	i;
 	int	j;
@@ -36,6 +36,8 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 		j++;
 	}
 	(*cmds)->cmd[j] = 0;
+	(*cmds)->prev = prev;
+	(*cmds)->next = 0;
 	return (i);
 }
 
@@ -45,28 +47,29 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds)
 */
 t_cmd	*ft_parse_to_cmds(char **tokens)
 {
-	t_cmd	*first_cmd;
+	t_cmd	*prev;
 	t_cmd	*cmds;
 	int		i;
 
 	cmds = malloc(sizeof(t_cmd));
-	first_cmd = cmds;
+	prev = 0;
 	i = 0;
 	while (tokens[i])
 	{
 		if (!cmds)
 		{
 			printf("%sError: not enough memory%s\n", RED, RESET);
-			ft_cmd_clear(first_cmd);
+			ft_cmd_clear(cmds);
 			return (0);
 		}
-		i += ft_get_cmd(&tokens[i], &cmds);
+		i += ft_get_cmd(&tokens[i], &cmds, prev);
 		if (tokens[i])
 		{
+			prev = cmds;
 			cmds->next = malloc(sizeof(t_cmd));
 			cmds = cmds->next;
 		}
 	}
-	cmds->next = 0;
-	return (first_cmd);
+	ft_rollback_lst(&cmds);
+	return (cmds);
 }

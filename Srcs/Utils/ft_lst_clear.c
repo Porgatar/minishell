@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 09:56:57 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/18 16:37:20 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:04:16 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_cmd_clear(t_cmd *lst)
 
 	if (!lst)
 		return ;
+	while (lst->prev)
+		lst = lst->prev;
 	tmp = lst;
 	while (lst)
 	{
