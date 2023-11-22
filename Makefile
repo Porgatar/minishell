@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/11/18 16:36:46 by parinder         ###   ########.fr        #
+#    Updated: 2023/11/22 20:40:15 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ MAKEFLAGS=	--silent
 
 NAME=		minishell
 
-CC=			gcc
+CC=			clang
 
 CFLAGS=		-Wall -Werror -Wextra -g
 
@@ -32,6 +32,7 @@ SRCS=		Srcs/main.c \
 			Srcs/Utils/is_space.c \
 			Srcs/Utils/ft_free_2dtab.c \
 			Srcs/Utils/ft_lst_clear.c \
+			Srcs/Utils/lst_manager.c \
 			Srcs/Utils/ft_strncmp.c \
 			Srcs/Utils/ft_strlen.c
 
