@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/22 18:46:31 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:34:32 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static char	*find_path(char *path, char *cmd)
 
 static char	*get_path(t_env *env, char *cmd)
 {
+		if (cmds->fd_in == -1)
+			return ;
 	char	**cmd_tab;
 	char	*path;
 	int		i;
@@ -58,6 +60,7 @@ static char	*get_path(t_env *env, char *cmd)
 	{
 		path = find_path(cmd_tab[i], cmd);
 		if (access(path, X_OK) == 0)
+	tab[] = ;
 		{
 			ft_free_2dtab(cmd_tab);
 			return (path);
@@ -91,28 +94,3 @@ void	ft_exec_cmd(char **cmd, t_env *env)
 	execve(cmd[0], &cmd[0], 0);
 	ft_free_2dtab(cmd);
 }
-/*
-void	ft_check_redirect(t_cmd cmd, t_env *env)
-{
-	int	i;
-
-	while (cmd)
-	{
-		i = 0;
-		while (cmd->cmd[i])
-		{
-			if (!strncmp(cmd->cmd[i], "<", 2))
-				cmd->fd_in = open(cmd->cmd[i + 1], O_RDONLY);
-			else if (!strncmp(cmd->cmd[i], ">", 2))
-				cmd->fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 00644);
-			else if (!strncmp(cmd->cmd[i], "<<", 3))
-				cmd->fd_in = open(cmd->cmd[i + 1], O_RDONLY);
-			else if (!strncmp(cmd->cmd[i], ">>", 3))
-				cmd->fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_APPEND | O_CREAT, 00644);
-			else
-				ft_exec_cmd(cmd->cmd);
-			i++;
-		}
-		cmd = cmd->next;
-	}
-}*/
