@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/22 20:37:36 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:16:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 
 /*	-	-	-	Defines	-	-	-	-	-	-	*/
 
-# define BUILTINS_NUMBER 2
 
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
@@ -78,10 +77,16 @@ void	ft_exec_cmd(char **cmd, t_env *env);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
+//	-	ft_exec_builtins.c
+//int	ft_exec_builtins(t_cmd *cmds);
 
-//	-	ft_env_var.c
+//	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
 t_env	*ft_index_env(char **envp);
+//void	ft_env(t_cmd *cmds);
+
+//	-	ft_pwd.c
+void	ft_pwd(t_cmd *cmds);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 

@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/11/22 20:40:15 by parinder         ###   ########.fr        #
+#    Updated: 2023/11/24 19:17:56 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS=		Srcs/main.c \
 			Srcs/ft_parse_to_cmds.c \
 			Srcs/ft_expand_cmds.c \
 			Srcs/ft_exec_cmd.c \
-			Srcs/Builtins/ft_env_var.c \
+			Srcs/Builtins/ft_env.c \
+			Srcs/Builtins/ft_pwd.c \
 			Srcs/Utils/ft_split.c \
 			Srcs/Utils/ft_substr.c \
 			Srcs/Utils/ft_strlcpy.c \
