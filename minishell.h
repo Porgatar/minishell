@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/24 19:16:35 by parinder         ###   ########.fr       */
+/*   Updated: 2023/11/24 20:58:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 typedef struct s_cmd
 {
 	char			**cmd;
-	int				fd_in;
+	int				fd_input;
 	int				fd_out;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
