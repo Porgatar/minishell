@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+#			Srcs/ft_exec_cmd.c
+
 MAKEFLAGS=	--silent
 
 NAME=		minishell
@@ -24,9 +26,11 @@ SRCS=		Srcs/main.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
 			Srcs/ft_expand_cmds.c \
-			Srcs/ft_exec_cmd.c \
-			Srcs/Builtins/ft_env.c \
+\
+			Srcs/Builtins/ft_echo.c \
 			Srcs/Builtins/ft_pwd.c \
+			Srcs/Builtins/ft_env.c \
+\
 			Srcs/Utils/ft_split.c \
 			Srcs/Utils/ft_substr.c \
 			Srcs/Utils/ft_strlcpy.c \

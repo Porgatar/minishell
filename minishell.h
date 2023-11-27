@@ -38,7 +38,7 @@
 typedef struct s_cmd
 {
 	char			**cmd;
-	int				fd_input;
+	int				fd_in;
 	int				fd_out;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
@@ -80,13 +80,16 @@ void	ft_exec_cmd(char **cmd, t_env *env);
 //	-	ft_exec_builtins.c
 //int	ft_exec_builtins(t_cmd *cmds);
 
+//	-	ft_echo.c
+int		ft_echo(t_cmd *cmds);
+
+//	-	ft_pwd.c
+int		ft_pwd(t_cmd *cmds);
+
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
 t_env	*ft_index_env(char **envp);
 //void	ft_env(t_cmd *cmds);
-
-//	-	ft_pwd.c
-void	ft_pwd(t_cmd *cmds);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 
