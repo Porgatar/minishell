@@ -33,26 +33,25 @@ static void	print_list(t_cmd *cmds, char *s)
 {
 	t_cmd	*cmd;
 	int		i;
+	int		j;
 
 	printf("%s\n%s\n%s", RED, s, RESET);
 	cmd = cmds;
+	j = 0;
 	while (cmd)
 	{
+		printf("maillon num = %d\ntableau du maillon = ", j);
 		i = 0;
 		while (cmd->cmd[i])
 		{
 			if (cmd->cmd[i])
-			{
-				if (cmd->cmd[i][0] == '|')
-					printf("\n");
 				printf("%s, ", cmd->cmd[i]);
-				if (cmd->cmd[i][0] == '|')
-					printf("\n");
-			}
 			i++;
 		}
 		printf("\n");
 		cmd = cmd->next;
+		printf("fd_in = ?, fd_out = ?\n\n"/*, cmd->fd_in, cmd->fd_out*/);
+		j++;
 	}
 }
 

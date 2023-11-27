@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-void	ft_pwd(t_cmd *cmd)
+int	ft_pwd(t_cmd *cmd)
 {
 	char	path[1024];
 
@@ -20,4 +20,5 @@ void	ft_pwd(t_cmd *cmd)
 	getcwd(path, 1024);
 	write(cmd->fd_out, path, ft_strlen(path) + 1);
 	write(cmd->fd_out, "\n", 2);
+	return (0);
 }
