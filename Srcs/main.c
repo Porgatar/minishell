@@ -40,7 +40,7 @@ static void	print_list(t_cmd *cmds, char *s)
 	j = 0;
 	while (cmd)
 	{
-		printf("maillon num = %d\ntableau du maillon = ", j);
+		printf("maillon num = %d\ntableau du maillon (une chaine par virgule)= ", j);
 		i = 0;
 		while (cmd->cmd[i])
 		{
