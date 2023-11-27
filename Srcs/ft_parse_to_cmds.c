@@ -21,13 +21,10 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds, t_cmd *prev)
 	int	j;
 
 	i = 0;
-	while (tokens[i] && tokens[i][0] != '|' \
-	&& tokens[i][0] != '<' && tokens[i][0] != '>')
+	if (tokens[0][0] == '|')
 		i++;
-	if (tokens[0][0] == '<' || tokens[0][0] == '>')
-		i = 2;
-	else if (tokens[0][0] == '|')
-		i = 1;
+	while (tokens[i] && tokens[i][0] != '|')
+		i++;
 	(*cmds)->cmd = malloc(sizeof(char *) * (i + 1));
 	j = 0;
 	while (j < i)
