@@ -19,10 +19,15 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds, t_cmd *prev)
 {
 	int	i;
 	int	j;
+	int	is_pipe;
 
 	i = 0;
+	is_pipe = 0;
 	if (tokens[0][0] == '|')
-		i++;
+	{
+		tokens++;
+		is_pipe = 1;
+	}
 	while (tokens[i] && tokens[i][0] != '|')
 		i++;
 	(*cmds)->cmd = malloc(sizeof(char *) * (i + 1));
@@ -35,7 +40,7 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds, t_cmd *prev)
 	(*cmds)->cmd[j] = 0;
 	(*cmds)->prev = prev;
 	(*cmds)->next = 0;
-	return (i);
+	return (i + is_pipe);
 }
 
 /*
