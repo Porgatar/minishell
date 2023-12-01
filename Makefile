@@ -6,11 +6,9 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/01 16:43:31 by luhego           ###   ########.fr        #
+#    Updated: 2023/12/01 19:01:06 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-#			Srcs/ft_exec_cmd.c
 
 MAKEFLAGS=	--silent
 
@@ -26,11 +24,13 @@ SRCS=		Srcs/main.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
 			Srcs/ft_expand_cmds.c \
-			Srcs/ft_exec_cmd.c \
 			Srcs/ft_redirect.c \
+			Srcs/ft_exec_pipeline.c \
 \
+			Srcs/Builtins/ft_exec_builtins.c \
 			Srcs/Builtins/ft_echo.c \
 			Srcs/Builtins/ft_pwd.c \
+			Srcs/Builtins/ft_export.c \
 			Srcs/Builtins/ft_env.c \
 \
 			Srcs/Utils/ft_split.c \
@@ -41,7 +41,8 @@ SRCS=		Srcs/main.c \
 			Srcs/Utils/ft_lst_clear.c \
 			Srcs/Utils/lst_manager.c \
 			Srcs/Utils/ft_strncmp.c \
-			Srcs/Utils/ft_strlen.c
+			Srcs/Utils/ft_strlen.c \
+			Srcs/Utils/ft_strdup.c
 
 all:		$(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 14:32:18 by parinder & luhego #+#    #+#             */
-/*   Updated: 2023/12/01 17:18:47 by luhego           ###   ########.fr       */
+/*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/12/01 17:58:23 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ void	ft_redirect_out(t_cmd *args, int i)
 /*
 
 */
-void	ft_check_redirect(t_cmd *args)
+void	ft_redirect(t_cmd *args)
 {
 	int	i;
 	int	fd[2];
 
 	while (args)
 	{
+		args->fd_in = 0;
+		args->fd_out = 1;
 		if (args->next)
 		{
 			pipe(fd);

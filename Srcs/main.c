@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 17:52:37 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:08:22 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	main(int ac, char **av, char **envp)
 				print_list(cmds, "**cmds(one pipe per line)");
 				ft_expand_cmds(cmds, env);
 				print_list(cmds, "**expanded_cmds(one pipe per line)");
-				ft_check_redirect(cmds);
-				print_list(cmds, "**ft_redirect(one pipe per line)");
-				ft_set_process(cmds, env);
+				ft_redirect(cmds);
+				print_list(cmds, "**ft_redirected_cmds(one pipe per line)");
+				ft_exec_pipeline(cmds, env);
 				ft_cmd_clear(cmds);
 			}
 		}

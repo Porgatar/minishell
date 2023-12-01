@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 17:52:51 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:04:46 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,18 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
-/*	-	-	-	ft_exec_cmd.c	-	-	-	-	*/
+/*	-	-	-	ft_redirect.c	-	-	-	*/
 
-void	ft_set_process(t_cmd *cmds, t_env *env);
+void	ft_redirect(t_cmd *cmds);
 
-/*	-	-	-	ft_check_redirect.c	-	-	-	*/
+/*	-	-	-	ft_exec_pipeline.c	-	-	-	-	*/
 
-void	ft_check_redirect(t_cmd *args);
+void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
 //	-	ft_exec_builtins.c
-//int	ft_exec_builtins(t_cmd *cmds);
+int		ft_exec_builtins(t_cmd *cmds, t_env *env);
 
 //	-	ft_echo.c
 int		ft_echo(t_cmd *cmds);
@@ -93,11 +93,14 @@ int		ft_cd(t_cmd *cmds);
 //	-	ft_pwd.c
 int		ft_pwd(t_cmd *cmds);
 
+//	-	ft_export.c
+int		ft_export(t_cmd *cmds, t_env *env);
+
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
 void	ft_envcpy(const char *var, char **key, char **value);
 t_env	*ft_index_env(char **envp);
-int		ft_env(t_cmd *cmds);
+int		ft_env(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 
@@ -111,5 +114,6 @@ void	ft_cmd_clear(t_cmd *lst);
 void	ft_rollback_lst(t_cmd **cmds);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
 
 #endif
