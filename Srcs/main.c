@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/24 17:20:12 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:43:20 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	print_list(t_cmd *cmds, char *s)
 			i++;
 		}
 		printf("\n");
+		printf("fd_in = %i, fd_out = %i\n\n", cmd->fd_in, cmd->fd_out);
 		cmd = cmd->next;
-		printf("fd_in = ?, fd_out = ?\n\n"/*, cmd->fd_in, cmd->fd_out*/);
 		j++;
 	}
 }
@@ -94,10 +94,13 @@ int	main(int ac, char **av, char **envp)
 				print_list(cmds, "**cmds(one pipe per line)");
 				ft_expand_cmds(cmds, env);
 				print_list(cmds, "**expanded_cmds(one pipe per line)");
-				//	ft_exec_cmd(cmds->cmd, env);
+				ft_check_redirect(cmds);
+				print_list(cmds, "**ft_redirect(one pipe per line)");
+				ft_set_process(cmds, env);
 				ft_cmd_clear(cmds);
 			}
 		}
+		waitpid(0, 0, 0);
 	}
 	ft_env_clear(env);
 	return (0);

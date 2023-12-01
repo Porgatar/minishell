@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/24 20:58:11 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:45:16 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_exec_cmd.c	-	-	-	-	*/
 
-void	ft_exec_cmd(char **cmd, t_env *env);
+void	ft_set_process(t_cmd *cmds, t_env *env);
+
+/*	-	-	-	ft_check_redirect.c	-	-	-	*/
+
+void	ft_check_redirect(t_cmd *args);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 

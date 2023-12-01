@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/23 18:34:32 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:42:41 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ static char	*find_path(char *path, char *cmd)
 
 /* - - - this function is here to check if the path is correct, in cases he's not the function check if the path can be found - - - */
 
-static char	*get_path(t_env *env, char *cmd)
+static char	*get_path(char *cmd, t_env *env)
 {
-		if (cmds->fd_in == -1)
-			return ;
 	char	**cmd_tab;
 	char	*path;
 	int		i;
@@ -60,7 +58,6 @@ static char	*get_path(t_env *env, char *cmd)
 	{
 		path = find_path(cmd_tab[i], cmd);
 		if (access(path, X_OK) == 0)
-	tab[] = ;
 		{
 			ft_free_2dtab(cmd_tab);
 			return (path);
@@ -73,24 +70,68 @@ static char	*get_path(t_env *env, char *cmd)
 	return (NULL);
 }
 
+static void ft_free_redirect(char **redirect)
+{
+	int	i;
+
+	i = 0;
+	while (redirect[i])
+	{
+		free(redirect[i]);
+		i++;
+	}
+	*redirect = 0;
+}
+
 /* - - - this function execute the cmd she receive - - - */
 
-void	ft_exec_cmd(char **cmd, t_env *env)
+void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 {
 	char	*path;
+	int		i;
+	int		j;
 
-	if (access(cmd[0], X_OK) == -1)
+	i = 0;
+	while (cmds->cmd[i] && (cmds->cmd[i][0] == '<' || cmds->cmd[i][0] == '>'))
+		i += 2;
+	j = i;
+	while (cmds->cmd[j] && cmds->cmd[j][0] != '<' && cmds->cmd[j][0] != '>')
+		j++;
+	ft_free_redirect(&cmds->cmd[j]);
+	printf("%s\n", cmds->cmd[i]);
+	if (access(cmds->cmd[i], X_OK) == -1)
 	{
-		path = get_path(env, cmd[0]);
+		path = get_path(cmds->cmd[i], env);
 		if (path == NULL)
 		{
 			printf("command not found:\n");
-			ft_free_2dtab(cmd);
+		//	ft_free_2dtab(cmds->cmd[0]);
 			exit(0);
 		}
-		free(cmd[0]);
-		cmd[0] = path;
+		free(cmds->cmd[i]);
+		cmds->cmd[i] = path;
 	}
-	execve(cmd[0], &cmd[0], 0);
-	ft_free_2dtab(cmd);
+	execve(cmds->cmd[i], &cmds->cmd[i], 0);
+	// free();
+}
+
+void	ft_set_process(t_cmd *cmds, t_env *env)
+{
+	pid_t	pid;
+
+	while(cmds)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(cmds->fd_in, STDIN_FILENO);
+			dup2(cmds->fd_out, STDOUT_FILENO);
+			close(cmds->fd_in);
+			close(cmds->fd_out);
+			ft_exec_cmd(cmds, env);
+			close(STDIN_FILENO);
+			close(STDOUT_FILENO);
+		}
+		cmds = cmds->next;
+	}
 }
