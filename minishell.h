@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 16:45:16 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:52:51 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,17 @@ void	ft_check_redirect(t_cmd *args);
 //	-	ft_echo.c
 int		ft_echo(t_cmd *cmds);
 
+//	-	ft_cd.c
+int		ft_cd(t_cmd *cmds);
+
 //	-	ft_pwd.c
 int		ft_pwd(t_cmd *cmds);
 
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
+void	ft_envcpy(const char *var, char **key, char **value);
 t_env	*ft_index_env(char **envp);
-//void	ft_env(t_cmd *cmds);
+int		ft_env(t_cmd *cmds);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 
