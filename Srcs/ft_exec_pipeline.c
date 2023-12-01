@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 19:23:19 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 00:05:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,12 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 		if (path == NULL)
 		{
 			printf("command not found:\n");
-		//	ft_free_2dtab(cmds->cmd[0]);
-			exit(0);
+			return (0);
 		}
 		free(cmds->cmd[i]);
 		cmds->cmd[i] = path;
 	}
 	execve(cmds->cmd[i], &cmds->cmd[i], 0);
-	// free();
 }
 
 /*
@@ -128,7 +126,7 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 {
 	pid_t	pid;
 
-	while(cmds)
+	while (cmds)
 	{
 		if (!ft_exec_builtins(cmds, env))
 		{
@@ -137,13 +135,16 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 			{
 				dup2(cmds->fd_in, STDIN_FILENO);
 				dup2(cmds->fd_out, STDOUT_FILENO);
-				close(cmds->fd_in);
-				close(cmds->fd_out);
+				ft_close_fds(cmds);
 				ft_exec_cmd(cmds, env);
-				close(STDIN_FILENO);
-				close(STDOUT_FILENO);
+				ft_cmd_clear(cmds);
+				exit(0);
 			}
 		}
+		if (cmds->fd_in != 0)
+			close(cmds->fd_in);
+		if (cmds->fd_out != 1)
+			close(cmds->fd_out);
 		cmds = cmds->next;
 	}
 }

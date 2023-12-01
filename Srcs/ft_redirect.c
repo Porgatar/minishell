@@ -6,79 +6,97 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 17:58:23 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:47:39 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h" 
 
 /*
-
+	this function close all the opend fd in the chained list of cmds.
 */
-void	ft_redirect_in(t_cmd *args, int i)
+void		ft_close_fds(t_cmd *cmds)
 {
-	if (args->fd_in > 0)
-		close(args->fd_in);
-	if (!strncmp(args->cmd[i], "<", 2))
+	while (cmds)
 	{
-		args->fd_in = open(args->cmd[i + 1], O_RDONLY);
-		if (args->fd_in == -1)
-			return ;
-	}
-	else if (!strncmp(args->cmd[i], "<<", 3))
-	{
-		args->fd_in = 142; // heredoc
-		if (args->fd_in == -1)
-			return ;
+		if (cmds->fd_in > 0)
+			close(cmds->fd_in);
+		if (cmds->fd_out > 1)
+			close(cmds->fd_out);
+		cmds = cmds->next;
 	}
 }
+
 /*
 
 */
-void	ft_redirect_out(t_cmd *args, int i)
+static void	ft_redirect_in(t_cmd *cmds, int i)
 {
-	if (args->fd_out > 1)
-		close(args->fd_out);
-	if (!strncmp(args->cmd[i], ">", 2))
+	if (cmds->fd_in > 0)
+		close(cmds->fd_in);
+	if (!strncmp(cmds->cmd[i], "<", 2))
 	{
-		args->fd_out = open(args->cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 00644);
-		if (args->fd_out == -1)
+		cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
+		if (cmds->fd_in == -1)
 			return ;
 	}
-	else if (!strncmp(args->cmd[i], ">>", 3))
+	else if (!strncmp(cmds->cmd[i], "<<", 3))
 	{
-		args->fd_out = open(args->cmd[i + 1], O_WRONLY | O_APPEND | O_CREAT, 00644);
-		if (args->fd_out == -1)
+		cmds->fd_in = 142; // heredoc
+		if (cmds->fd_in == -1)
 			return ;
 	}
 }
+
 /*
 
 */
-void	ft_redirect(t_cmd *args)
+static void	ft_redirect_out(t_cmd *cmds, int i)
+{
+	if (cmds->fd_out > 1)
+		close(cmds->fd_out);
+	if (!strncmp(cmds->cmd[i], ">", 2))
+	{
+		cmds->fd_out = open(cmds->cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 00644);
+		if (cmds->fd_out == -1)
+			return ;
+	}
+	else if (!strncmp(cmds->cmd[i], ">>", 3))
+	{
+		cmds->fd_out = open(cmds->cmd[i + 1], O_WRONLY | O_APPEND | O_CREAT, 00644);
+		if (cmds->fd_out == -1)
+			return ;
+	}
+}
+
+/*
+
+*/
+void	ft_redirect(t_cmd *cmds)
 {
 	int	i;
 	int	fd[2];
 
-	while (args)
+	while (cmds)
 	{
-		args->fd_in = 0;
-		args->fd_out = 1;
-		if (args->next)
+		if (!cmds->prev)
+			cmds->fd_in = 0;
+		cmds->fd_out = 1;
+		if (cmds->next)
 		{
 			pipe(fd);
-			args->next->fd_in = fd[0];
-			args->fd_out = fd[1];
+			cmds->next->fd_in = fd[0];
+			cmds->fd_out = fd[1];
 		}
 		i = 0;
-		while (args->cmd[i])
+		while (cmds->cmd[i])
 		{
-			if (args->cmd[i][0] == '<')
-				ft_redirect_in(args, i);
-			else if (args->cmd[i][0] == '>')
-				ft_redirect_out(args, i);
+			if (cmds->cmd[i][0] == '<')
+				ft_redirect_in(cmds, i);
+			else if (cmds->cmd[i][0] == '>')
+				ft_redirect_out(cmds, i);
 			i++;
 		}
-		args = args->next;
+		cmds = cmds->next;
 	}
 }
