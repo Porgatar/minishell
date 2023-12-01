@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/01 19:06:30 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:34:14 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ static t_env	*ft_dup_env(t_env *env)
 	t_env	*first_var;
 	t_env	*export;
 
-	first_var = 0;
+	export = malloc(sizeof(t_env));
+	first_var = export;
 	while (env)
 	{
-		export = malloc(sizeof(t_env));
-		if (!first_var)
-			first_var = export;
 		if (!export)
 		{
 			ft_env_clear(first_var);
@@ -31,8 +29,13 @@ static t_env	*ft_dup_env(t_env *env)
 		export->key = ft_strdup(env->key);
 		export->value = ft_strdup(env->value);
 		env = env->next;
+		if (env)
+		{
+			export->next = malloc(sizeof(t_env));
+			export = export->next;
+		}
 	}
-	env->next = 0;
+	export->next = 0;
 	return (first_var);
 }
 
@@ -58,17 +61,21 @@ static void	ft_sort_env(t_env *env)
 
 static int	ft_display_export(t_cmd *cmds, t_env *env)
 {
-	env = ft_dup_env(env);
+	t_env *tmp;
+
 //	env = ft_sort_env(env);
+	env = ft_dup_env(env);
+	tmp = env;
 	while (env)
 	{
-		write(cmds->fd_out, "declare -x ", 1);
+		write(cmds->fd_out, "declare -x ", 11);
 		write(cmds->fd_out, env->key, ft_strlen(env->key));
 		write(cmds->fd_out, "=\"", 2);
 		write(cmds->fd_out, env->value, ft_strlen(env->value));
 		write(cmds->fd_out, "\"\n", 2);
 		env = env->next;
 	}
+	ft_env_clear(tmp);
 	return (0);
 }
 
