@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 19:04:46 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:47:33 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define RESET	"\033[0m"
 
 /*	-	-	-	Defines	-	-	-	-	-	-	*/
-
 
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
@@ -74,6 +73,7 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 /*	-	-	-	ft_redirect.c	-	-	-	*/
 
 void	ft_redirect(t_cmd *cmds);
+void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	-	*/
 
