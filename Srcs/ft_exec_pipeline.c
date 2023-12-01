@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 19:03:54 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:23:19 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 				close(STDIN_FILENO);
 				close(STDOUT_FILENO);
 			}
-			cmds = cmds->next;
 		}
+		cmds = cmds->next;
 	}
 }
