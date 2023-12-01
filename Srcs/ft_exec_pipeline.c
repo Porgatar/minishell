@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
+/*   ft_exec_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 17:42:41 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/01 19:03:54 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-All fonction below have to be tested, also need to find how to deal with the tab of params
-cmd/heredoc/redirect/pipe
+	All fonction below have to be tested, also need to find how to deal with
+	the tab of params cmd/heredoc/redirect/pipe
 */
 
-/* - - - this function return an array of all cmd's path from env - - -*/
+/*
+	this function return an array of all cmd's path from env
+*/
 
 static char	*find_path(char *path, char *cmd)
 {
@@ -42,7 +44,10 @@ static char	*find_path(char *path, char *cmd)
 	return (origin_path);
 }
 
-/* - - - this function is here to check if the path is correct, in cases he's not the function check if the path can be found - - - */
+/*
+	this function is here to check if the path is correct,
+	in cases he's not the function check if the path can be found
+*/
 
 static char	*get_path(char *cmd, t_env *env)
 {
@@ -83,9 +88,10 @@ static void ft_free_redirect(char **redirect)
 	*redirect = 0;
 }
 
-/* - - - this function execute the cmd she receive - - - */
-
-void	ft_exec_cmd(t_cmd *cmds, t_env *env)
+/*
+	this function execute the cmd she receive
+*/
+static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 {
 	char	*path;
 	int		i;
@@ -115,23 +121,29 @@ void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 	// free();
 }
 
-void	ft_set_process(t_cmd *cmds, t_env *env)
+/*
+
+*/
+void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 {
 	pid_t	pid;
 
 	while(cmds)
 	{
-		pid = fork();
-		if (pid == 0)
+		if (!ft_exec_builtins(cmds, env))
 		{
-			dup2(cmds->fd_in, STDIN_FILENO);
-			dup2(cmds->fd_out, STDOUT_FILENO);
-			close(cmds->fd_in);
-			close(cmds->fd_out);
-			ft_exec_cmd(cmds, env);
-			close(STDIN_FILENO);
-			close(STDOUT_FILENO);
+			pid = fork();
+			if (pid == 0)
+			{
+				dup2(cmds->fd_in, STDIN_FILENO);
+				dup2(cmds->fd_out, STDOUT_FILENO);
+				close(cmds->fd_in);
+				close(cmds->fd_out);
+				ft_exec_cmd(cmds, env);
+				close(STDIN_FILENO);
+				close(STDOUT_FILENO);
+			}
+			cmds = cmds->next;
 		}
-		cmds = cmds->next;
 	}
 }
