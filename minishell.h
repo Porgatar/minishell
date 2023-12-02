@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 14:33:32 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 21:45:17 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,29 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
-//	-	ft_exec_builtins.c
-int		ft_exec_builtins(t_cmd *cmds, t_env *env);
-
-//	-	ft_echo.c
-int		ft_echo(t_cmd *cmds);
-
 //	-	ft_cd.c
 int		ft_cd(t_cmd *cmds);
 
-//	-	ft_pwd.c
-int		ft_pwd(t_cmd *cmds);
-
-//	-	ft_export.c
-int		ft_export(t_cmd *cmds, t_env *env);
+//	-	ft_echo.c
+int		ft_echo(t_cmd *cmds);
 
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
 void	ft_envcpy(const char *var, char **key, char **value);
 t_env	*ft_index_env(char **envp);
 int		ft_env(t_cmd *cmds, t_env *env);
+
+//	-	ft_exec_builtins.c
+int		ft_exec_builtins(t_cmd *cmds, t_env *env);
+
+//	-	ft_exit.c
+int		ft_exit(t_cmd *cmds, t_env *env);
+
+//	-	ft_export.c
+int		ft_export(t_cmd *cmds, t_env *env);
+
+//	-	ft_pwd.c
+int		ft_pwd(t_cmd *cmds);
 
 /*	-	-	-	utils dir	-	-	-	-	-	*/
 

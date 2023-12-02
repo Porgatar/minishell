@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 14:59:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 21:47:10 by luhego           ###   ########.fr       */
+/*   Created: 2023/12/02 16:56:49 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/12/02 18:07:53 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-/*
-	this function switch the current working dir and
-	updates therfore the PWD's var in t_env chained list.
-*/
-int	ft_cd(t_cmd *cmds)
+
+int	ft_exit(t_cmd *cmds, t_env *env)
 {
-	if (cmds->cmd[2])
+	if (!cmds->next && !cmds->prev)
 	{
-		printf("cd: too may arguments\n");
+		ft_env_clear(env);
+		ft_cmd_clear(cmds);
+		write(1, "exit\n", 5);
+		exit(0);
 	}
-	chdir(cmds->cmd[1]);
-	return (0);
+	return (-1);
 }
