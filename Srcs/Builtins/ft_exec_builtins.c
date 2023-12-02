@@ -6,12 +6,17 @@
 /*   By: luhego & parinder                          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:11:43 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 19:28:24 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:29:47 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+
+/*
+	this function execute the corresponding builtins if it is one
+	and return 1, return 0 if it isn't one.
+*/
 int	ft_exec_builtins(t_cmd *cmds, t_env *env)
 {
 	if (!ft_strncmp(cmds->cmd[0], "echo", 5))

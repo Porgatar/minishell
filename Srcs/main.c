@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 22:02:13 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:16:12 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	print_list(t_cmd *cmds, char *s)
 	j = 0;
 	while (cmd)
 	{
-		printf("maillon num = %d\ntableau du maillon (une chaine par virgule)= ", j);
+		printf("maillon num = %d\ntab (une chaine par virgule)= ", j);
 		i = 0;
 		while (cmd->cmd[i])
 		{
@@ -49,7 +49,8 @@ static void	print_list(t_cmd *cmds, char *s)
 			i++;
 		}
 		printf("\n");
-		printf("fd_in = %i, fd_out = %i\n\n", cmd->fd_in, cmd->fd_out);
+		if (!ft_strncmp(s, "**f", 3))
+			printf("fd_in = %i, fd_out = %i\n\n", cmd->fd_in, cmd->fd_out);
 		cmd = cmd->next;
 		j++;
 	}
@@ -71,6 +72,9 @@ static void	print_env(t_env *cmds)
 	printf("\n");
 }
 
+/*
+	this programm is a feature less bash shell.
+*/
 int	main(int ac, char **av, char **envp)
 {
 	char	**tokens;

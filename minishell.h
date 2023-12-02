@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 23:47:33 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:33:32 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		is_space(char c);
 void	ft_env_clear(t_env *lst);
 void	ft_cmd_clear(t_cmd *lst);
 void	ft_rollback_lst(t_cmd **cmds);
+void	ft_lstswap(t_env *a, t_env *b);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);

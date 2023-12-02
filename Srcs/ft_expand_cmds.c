@@ -6,12 +6,16 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/18 17:26:44 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:13:25 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+	this function pars the s to get the needed key and search it in the t_env
+	chained list and return the found list.
+*/
 static t_expand	*ft_get_expand(const char *s, t_env *env)
 {
 	t_expand	*expand;
@@ -19,6 +23,8 @@ static t_expand	*ft_get_expand(const char *s, t_env *env)
 	int			i;
 
 	expand = malloc(sizeof(t_expand));
+	if (!expand)
+		return (0);
 	i = 0;
 	while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
 		i++;
@@ -30,6 +36,11 @@ static t_expand	*ft_get_expand(const char *s, t_env *env)
 	return (expand);
 }
 
+/*
+	this function search in the pipeline all the key that need to
+	be expanded and return a chained list of the key=value arguments,
+	return 0 if not found.
+*/
 static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 {
 	t_expand	*expanded;
@@ -79,6 +90,10 @@ static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 	return (first);
 }
 
+/*
+	this function use the previously called ft_get_to_expand and replace
+	the original string in the pipeline.
+*/
 static char	*ft_expand_str(char *s, t_expand *expand, int len)
 {
 	char		*expanded;
@@ -120,6 +135,9 @@ static char	*ft_expand_str(char *s, t_expand *expand, int len)
 	return (expanded);
 }
 
+/*
+	this function expand all key that are to be found in the pipeline.
+*/
 void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 {
 	int			i;

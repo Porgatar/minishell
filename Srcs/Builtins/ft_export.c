@@ -6,12 +6,16 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/01 19:34:14 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:34:48 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+/*
+	this function duplicate the t_env chained list and return it,
+	return 0 if it failed to duplicate it.
+*/
 static t_env	*ft_dup_env(t_env *env)
 {
 	t_env	*first_var;
@@ -40,31 +44,38 @@ static t_env	*ft_dup_env(t_env *env)
 }
 
 /*
-static void	ft_sort_env(t_env *env)
+	this function dup the t_env chained list and sort it in alphabetik order.
+*/
+static t_env	*ft_sort_env(t_env *env)
 {
-	t_env	*dup;
+	t_env	*first;
 	t_env	*tmp;
 
-	dup = ft_dup_env(env);
-	while (dup)
+	env = ft_dup_env(env);
+	first = env;
+	while (env)
 	{
-		tmp = dup;
+		tmp = env;
 		while (tmp)
 		{
-			if (ft_strncmp(dup->key, tmp->key) > 0)
-				ft_swap();
+			if (ft_strncmp(env->key, tmp->key, ft_strlen(env->key) + 1) > 0)
+				ft_lstswap(env, tmp);
+			tmp = tmp->next;
 		}
-		dup = dup->next;
+		env = env->next;
 	}
+	return (first);
 }
-*/
 
+/*
+	this function sort the t_env chained list and
+	displays it like ft_env but in a different format.
+*/
 static int	ft_display_export(t_cmd *cmds, t_env *env)
 {
 	t_env *tmp;
 
-//	env = ft_sort_env(env);
-	env = ft_dup_env(env);
+	env = ft_sort_env(env);
 	tmp = env;
 	while (env)
 	{
@@ -85,18 +96,10 @@ static int	ft_display_export(t_cmd *cmds, t_env *env)
 */
 int	ft_export(t_cmd *cmds, t_env *env)
 {
-	int	i;
-
 	if (!cmds->cmd[1])
 	{
 		ft_display_export(cmds, env);
 		return (0);
-	}
-	i = 0;
-	while (cmds->cmd[i])
-	{
-		
-		i++;
 	}
 	return (0);
 }
