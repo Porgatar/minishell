@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 23:47:39 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:18:48 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	this function close all the opend fd in the chained list of cmds.
 */
-void		ft_close_fds(t_cmd *cmds)
+void	ft_close_fds(t_cmd *cmds)
 {
 	while (cmds)
 	{
@@ -28,7 +28,8 @@ void		ft_close_fds(t_cmd *cmds)
 }
 
 /*
-
+	.
+	142 = heredoc.
 */
 static void	ft_redirect_in(t_cmd *cmds, int i)
 {
@@ -42,7 +43,7 @@ static void	ft_redirect_in(t_cmd *cmds, int i)
 	}
 	else if (!strncmp(cmds->cmd[i], "<<", 3))
 	{
-		cmds->fd_in = 142; // heredoc
+		cmds->fd_in = 142;
 		if (cmds->fd_in == -1)
 			return ;
 	}
@@ -57,13 +58,15 @@ static void	ft_redirect_out(t_cmd *cmds, int i)
 		close(cmds->fd_out);
 	if (!strncmp(cmds->cmd[i], ">", 2))
 	{
-		cmds->fd_out = open(cmds->cmd[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 00644);
+		cmds->fd_out = open(cmds->cmd[i + 1], \
+		O_WRONLY | O_TRUNC | O_CREAT, 00644);
 		if (cmds->fd_out == -1)
 			return ;
 	}
 	else if (!strncmp(cmds->cmd[i], ">>", 3))
 	{
-		cmds->fd_out = open(cmds->cmd[i + 1], O_WRONLY | O_APPEND | O_CREAT, 00644);
+		cmds->fd_out = open(cmds->cmd[i + 1], \
+		O_WRONLY | O_APPEND | O_CREAT, 00644);
 		if (cmds->fd_out == -1)
 			return ;
 	}

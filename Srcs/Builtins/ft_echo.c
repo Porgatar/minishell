@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:12:42 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 00:16:21 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:20:27 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int	ft_echo(t_cmd *cmds)
 	}
 	if (!cmds->cmd[1] || ft_strncmp(cmds->cmd[1], "-n", 3))
 		write(cmds->fd_out, "\n", 1);
-	return  (0);
+	return (0);
 }

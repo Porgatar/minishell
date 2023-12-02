@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 00:05:35 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:40:18 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*find_path(char *path, char *cmd)
 	origin_path[path_size - 1] = '/';
 	origin_path[path_size] = '\0';
 	ft_strlcpy(&origin_path[path_size], cmd, cmd_size);
-	printf("path = \"%s\"\n", origin_path);
 	return (origin_path);
 }
 
@@ -59,7 +58,7 @@ static char	*get_path(char *cmd, t_env *env)
 	if (!cmd_tab)
 		return (NULL);
 	i = 0;
-	while(cmd_tab[i])
+	while (cmd_tab[i])
 	{
 		path = find_path(cmd_tab[i], cmd);
 		if (access(path, X_OK) == 0)
@@ -75,7 +74,11 @@ static char	*get_path(char *cmd, t_env *env)
 	return (NULL);
 }
 
-static void ft_free_redirect(char **redirect)
+/*
+	this function free and set to 0 the args(redirections) after the cmd so that
+	execve doesn't read it.
+*/
+static void	ft_free_redirect(char **redirect)
 {
 	int	i;
 
@@ -104,14 +107,13 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 	while (cmds->cmd[j] && cmds->cmd[j][0] != '<' && cmds->cmd[j][0] != '>')
 		j++;
 	ft_free_redirect(&cmds->cmd[j]);
-	printf("%s\n", cmds->cmd[i]);
 	if (access(cmds->cmd[i], X_OK) == -1)
 	{
 		path = get_path(cmds->cmd[i], env);
 		if (path == NULL)
 		{
-			printf("command not found:\n");
-			return (0);
+			write(1, "command not found:\n", 19);
+			return ;
 		}
 		free(cmds->cmd[i]);
 		cmds->cmd[i] = path;
@@ -138,6 +140,7 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 				ft_close_fds(cmds);
 				ft_exec_cmd(cmds, env);
 				ft_cmd_clear(cmds);
+				ft_env_clear(env);
 				exit(0);
 			}
 		}
