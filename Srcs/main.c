@@ -6,13 +6,13 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 13:16:12 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:15:17 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	print_tab(char **tokens, t_env *env)
+static void	print_tab(char **tokens/*, t_env *env*/)
 {
 	int		i;
 
@@ -20,13 +20,13 @@ static void	print_tab(char **tokens, t_env *env)
 	i = 0;
 	while ((tokens[i]))
 		printf("%s\n", (tokens[i++]));
-	if (tokens[0][0] == 'e' && tokens[0][1] == 'x' \
+/*	if (tokens[0][0] == 'e' && tokens[0][1] == 'x' \
 	&& tokens[0][2] == 'i' && tokens[0][3] == 't')
 	{
 		ft_free_2dtab(tokens);
 		ft_env_clear(env);
 		exit(0);
-	}
+	}*/
 }
 
 static void	print_list(t_cmd *cmds, char *s)
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **envp)
 		tokens = ft_split_to_tokens(readline("Minishell❤️ :"));
 		if (tokens)
 		{
-			print_tab(tokens, env);
+			print_tab(tokens/*, env*/);
 			cmds = ft_parse_to_cmds(tokens);
 			free(tokens);
 			if (cmds)
@@ -106,6 +106,5 @@ int	main(int ac, char **av, char **envp)
 			}
 		}
 	}
-	ft_env_clear(env);
 	return (0);
 }
