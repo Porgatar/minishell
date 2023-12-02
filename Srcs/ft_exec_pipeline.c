@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 14:40:18 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:15:50 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,50 +75,24 @@ static char	*get_path(char *cmd, t_env *env)
 }
 
 /*
-	this function free and set to 0 the args(redirections) after the cmd so that
-	execve doesn't read it.
-*/
-static void	ft_free_redirect(char **redirect)
-{
-	int	i;
-
-	i = 0;
-	while (redirect[i])
-	{
-		free(redirect[i]);
-		i++;
-	}
-	*redirect = 0;
-}
-
-/*
 	this function execute the cmd she receive
 */
 static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 {
 	char	*path;
-	int		i;
-	int		j;
 
-	i = 0;
-	while (cmds->cmd[i] && (cmds->cmd[i][0] == '<' || cmds->cmd[i][0] == '>'))
-		i += 2;
-	j = i;
-	while (cmds->cmd[j] && cmds->cmd[j][0] != '<' && cmds->cmd[j][0] != '>')
-		j++;
-	ft_free_redirect(&cmds->cmd[j]);
-	if (access(cmds->cmd[i], X_OK) == -1)
+	if (access(cmds->cmd[0], X_OK) == -1)
 	{
-		path = get_path(cmds->cmd[i], env);
+		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
 			write(1, "command not found:\n", 19);
 			return ;
 		}
-		free(cmds->cmd[i]);
-		cmds->cmd[i] = path;
+		free(cmds->cmd[0]);
+		cmds->cmd[0] = path;
 	}
-	execve(cmds->cmd[i], &cmds->cmd[i], 0);
+	execve(cmds->cmd[0], cmds->cmd, 0);
 }
 
 /*
