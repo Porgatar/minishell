@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 13:18:48 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:14:59 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,49 +27,48 @@ void	ft_close_fds(t_cmd *cmds)
 	}
 }
 
+static void	ft_delstr(t_cmd *cmds, int i)
+{
+	if (cmds->cmd[i] && cmds->cmd[i + 1])
+	{
+		free(cmds->cmd[i]);
+		free(cmds->cmd[i + 1]);
+	}
+	while (cmds->cmd[i + 2])
+	{
+		cmds->cmd[i] = cmds->cmd[i + 2];
+		i++;
+	}
+	cmds->cmd[i] = 0;
+}
+
 /*
 	.
 	142 = heredoc.
 */
-static void	ft_redirect_in(t_cmd *cmds, int i)
+static void	ft_open(t_cmd *cmds, int i)
 {
-	if (cmds->fd_in > 0)
-		close(cmds->fd_in);
-	if (!strncmp(cmds->cmd[i], "<", 2))
+	if (cmds->cmd[i][0] == '>' && cmds->fd_out != -1)
 	{
-		cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
-		if (cmds->fd_in == -1)
-			return ;
+		if (cmds->fd_out > 1)
+			close(cmds->fd_out);
+		if (!strncmp(cmds->cmd[i], ">", 2))
+			cmds->fd_out = open(cmds->cmd[i + 1], \
+			O_WRONLY | O_TRUNC | O_CREAT, 00644);
+		else
+			cmds->fd_out = open(cmds->cmd[i + 1], \
+			O_WRONLY | O_APPEND | O_CREAT, 00644);
 	}
-	else if (!strncmp(cmds->cmd[i], "<<", 3))
+	if (cmds->cmd[i][0] == '<' && cmds->fd_in != -1)
 	{
-		cmds->fd_in = 142;
-		if (cmds->fd_in == -1)
-			return ;
+		if (cmds->fd_in > 0)
+			close(cmds->fd_in);
+		if (!strncmp(cmds->cmd[i], "<", 2))
+			cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
+		else
+			cmds->fd_in = 142;
 	}
-}
-
-/*
-
-*/
-static void	ft_redirect_out(t_cmd *cmds, int i)
-{
-	if (cmds->fd_out > 1)
-		close(cmds->fd_out);
-	if (!strncmp(cmds->cmd[i], ">", 2))
-	{
-		cmds->fd_out = open(cmds->cmd[i + 1], \
-		O_WRONLY | O_TRUNC | O_CREAT, 00644);
-		if (cmds->fd_out == -1)
-			return ;
-	}
-	else if (!strncmp(cmds->cmd[i], ">>", 3))
-	{
-		cmds->fd_out = open(cmds->cmd[i + 1], \
-		O_WRONLY | O_APPEND | O_CREAT, 00644);
-		if (cmds->fd_out == -1)
-			return ;
-	}
+	ft_delstr(cmds, i);
 }
 
 /*
@@ -94,12 +93,14 @@ void	ft_redirect(t_cmd *cmds)
 		i = 0;
 		while (cmds->cmd[i])
 		{
-			if (cmds->cmd[i][0] == '<')
-				ft_redirect_in(cmds, i);
-			else if (cmds->cmd[i][0] == '>')
-				ft_redirect_out(cmds, i);
-			i++;
+			if (cmds->cmd[i][0] == '<' || cmds->cmd[i][0] == '>')
+				ft_open(cmds, i);
+			else
+				i++;
 		}
+//		i = 0;
+//		while (cmds->cmd[i])
+//			printf("%s\n", cmds->cmd[i++]);
 		cmds = cmds->next;
 	}
 }
