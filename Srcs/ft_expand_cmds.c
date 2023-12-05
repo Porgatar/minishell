@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 13:13:25 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:02:28 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 		{
 			to_expand = ft_get_to_expand(cmds->cmd[i], &len, env);
 			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], to_expand, len);
+			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
+				i++;
 			i++;
 		}
 		cmds = cmds->next;

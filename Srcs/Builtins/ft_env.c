@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/01 16:04:24 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:00:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,29 @@ t_env	*ft_get_env_value(const char *key, t_env *env)
 }
 
 /*
-	split var using the = operator and copy it to
-	key and value pointed strings respectively.
+	this function add a new list to the env chained list.
 */
-void	ft_envcpy(const char *var, char **key, char **value)
+int	ft_env_new(t_env **env, const char *key, const char *value)
 {
-	int	i;
+	t_env	*lst;
+	t_env	*new;
 
-	i = 0;
-	while (var[i] && var[i] != '=')
-		i++;
-	*key = ft_substr(var, 0, i);
-	*value = ft_substr(var, i + 1, 2147483647);
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (-1);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	new->next = 0;
+	if (!*env)
+	{
+		*env = new;
+		return (0);
+	}
+	lst = *env;
+	while (lst->next)
+		lst = lst->next;
+	lst->next = new;
+	return (0);
 }
 
 /*
@@ -50,31 +61,22 @@ void	ft_envcpy(const char *var, char **key, char **value)
 */
 t_env	*ft_index_env(char **envp)
 {
-	t_env	*first_var;
 	t_env	*env;
 	int		i;
+	int		j;
 
-	env = malloc(sizeof(t_env));
-	first_var = env;
+	env = 0;
 	i = 0;
 	while (envp[i])
 	{
-		if (!env)
-		{
-			ft_env_clear(first_var);
-			return (0);
-		}
-		ft_envcpy(envp[i], &env->key, &env->value);
+		j = 0;
+		while (envp[i][j] && envp[i][j] != '=')
+			j++;
+		envp[i][j] = 0;
+		ft_env_new(&env, envp[i], &envp[i][j + 1]);
 		i++;
-		if (envp[i])
-		{
-			env->next = malloc(sizeof(t_env));
-			env = env->next;
-		}
 	}
-	env->next = 0;
-	return (first_var);
-	return  (0);
+	return (env);
 }
 
 /*

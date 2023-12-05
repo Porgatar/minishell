@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 21:45:17 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/05 19:01:39 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,16 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
-/*	-	-	-	ft_redirect.c	-	-	-	*/
+/*	-	-	-	ft_redirect.c	-	-	-	-	*/
 
 void	ft_redirect(t_cmd *cmds);
 void	ft_close_fds(t_cmd *cmds);
 
-/*	-	-	-	ft_exec_pipeline.c	-	-	-	-	*/
+/*	-	-	-	ft_heredoc.c	-	-	-	-	*/
+
+int	ft_heredoc(t_cmd *cmds, int i);
+
+/*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 
 void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 
@@ -89,7 +93,7 @@ int		ft_echo(t_cmd *cmds);
 
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
-void	ft_envcpy(const char *var, char **key, char **value);
+int		ft_env_add(t_env **env, const char *key, const char *value);
 t_env	*ft_index_env(char **envp);
 int		ft_env(t_cmd *cmds, t_env *env);
 
