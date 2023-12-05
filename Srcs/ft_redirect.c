@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 22:14:59 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:33:13 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	ft_close_fds(t_cmd *cmds)
 	}
 }
 
+/*
+	this function delete the redirections strings of the tab.
+*/
 static void	ft_delstr(t_cmd *cmds, int i)
 {
 	if (cmds->cmd[i] && cmds->cmd[i + 1])
@@ -43,8 +46,7 @@ static void	ft_delstr(t_cmd *cmds, int i)
 }
 
 /*
-	.
-	142 = heredoc.
+
 */
 static void	ft_open(t_cmd *cmds, int i)
 {
@@ -66,7 +68,7 @@ static void	ft_open(t_cmd *cmds, int i)
 		if (!strncmp(cmds->cmd[i], "<", 2))
 			cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
 		else
-			cmds->fd_in = 142;
+			cmds->fd_in = ft_heredoc(cmds, i);
 	}
 	ft_delstr(cmds, i);
 }
