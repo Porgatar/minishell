@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/05 16:33:35 by parinder         ###   ########.fr        #
+#    Updated: 2023/12/06 23:19:24 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS=		Srcs/main.c \
 			Srcs/Utils/lst_manager.c \
 			Srcs/Utils/ft_strncmp.c \
 			Srcs/Utils/ft_strlen.c \
-			Srcs/Utils/ft_strdup.c
+			Srcs/Utils/ft_strdup.c \
+			Srcs/Utils/ft_strjoin.c
 
 all:		$(NAME)
 

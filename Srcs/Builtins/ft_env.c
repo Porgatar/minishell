@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/05 22:25:23 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:11:23 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ t_env	*ft_get_env_value(const char *key, t_env *env)
 /*
 	
 */
-static int	is_env(t_env **env, const char *key, const char *value)
+static int	is_env(t_env *env, const char *key, const char *value)
 {
-	if (ft_get_env_value(key, *env))
-	{
-		
-	}
+	t_env	*var;
+
+	var = ft_get_env_value(key, env);
+	if (!var)
+		return (0);
+	free(var->value);
+	var->value = ft_strdup(value);
+	return (1);
 }
 
 /*

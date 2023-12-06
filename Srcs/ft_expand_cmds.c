@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/05 17:02:28 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:05:10 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	this function pars the s to get the needed key and search it in the t_env
 	chained list and return the found list.
-*/
+/
 static t_expand	*ft_get_expand(const char *s, t_env *env)
 {
 	t_expand	*expand;
@@ -36,11 +36,11 @@ static t_expand	*ft_get_expand(const char *s, t_env *env)
 	return (expand);
 }
 
-/*
+/
 	this function search in the pipeline all the key that need to
 	be expanded and return a chained list of the key=value arguments,
 	return 0 if not found.
-*/
+/
 static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 {
 	t_expand	*expanded;
@@ -90,10 +90,10 @@ static t_expand	*ft_get_to_expand(const char *s, int *len, t_env *env)
 	return (first);
 }
 
-/*
+/
 	this function use the previously called ft_get_to_expand and replace
 	the original string in the pipeline.
-*/
+/
 static char	*ft_expand_str(char *s, t_expand *expand, int len)
 {
 	char		*expanded;
@@ -135,9 +135,9 @@ static char	*ft_expand_str(char *s, t_expand *expand, int len)
 	return (expanded);
 }
 
-/*
+/
 	this function expand all key that are to be found in the pipeline.
-*/
+/
 void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 {
 	int			i;
@@ -151,6 +151,115 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 		{
 			to_expand = ft_get_to_expand(cmds->cmd[i], &len, env);
 			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], to_expand, len);
+			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
+				i++;
+			i++;
+		}
+		cmds = cmds->next;
+	}
+}
+*/
+
+/*
+
+*/
+static int	ft_join(char **expanded, char *s, char quote, char sep)
+{
+	char	*new;
+	char	*joined;
+	int		i;
+
+	i = 0;
+	while (s[i] && s[i] != quote)
+	{
+		if (s[i] == '$' && (!sep || quote != sep))
+			break ;
+		i++;
+	}
+	new = ft_substr(s, 0, i);
+	joined = ft_strjoin(*expanded, new);
+	free(new);
+	if (joined)
+	{
+		free(*expanded);
+		*expanded = joined;
+	}
+	return (i);
+}
+
+/*
+
+*/
+static int	ft_is_key(char **expanded, char *s, t_env *env)
+{
+	t_env	*var;
+	char	*key;
+	int		i;
+
+	i = 0;
+	while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
+		i++;
+	key = ft_substr(s, 0, i);
+	printf("key = %s\n", key);
+	var = ft_get_env_value(key, env);
+	free(key);
+	if (var)
+		key = ft_strjoin(*expanded, var->value);
+	printf("value = %s\n", key);
+	if (key)
+	{
+		if (*expanded)
+			free(*expanded);
+		*expanded = key;
+	}
+	return (i);
+}
+
+/*
+
+*/
+char	*ft_expand_str(char *s, char sep, t_env *env)
+{
+	char	*expanded;
+	int		i;
+	int		quote;
+
+	expanded = 0;
+	i = 0;
+	quote = 0;
+	while (s[i])
+	{
+		if (sep && !quote && s[i] && (s[i] == '"' || s[i] == '\''))
+			quote = s[i++];
+		else if (s[i] && s[i] == '$' && (!sep || quote != sep))
+			i += ft_is_key(&expanded, &s[i], env);
+		else if (sep && s[i] && s[i] == quote)
+		{
+			quote = 0;
+			i++;
+		}
+		else
+			i += ft_join(&expanded, &s[i], quote, sep);
+		if (i == -1)
+			return (s);
+	}
+	free(s);
+	return (expanded);
+}
+
+/*
+	this function expand all key that are to be found in the pipeline.
+*/
+void	ft_expand_cmds(t_cmd *cmds, t_env *env)
+{
+	int	i;
+
+	while (cmds)
+	{
+		i = 0;
+		while (cmds->cmd[i])
+		{
+			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], '\'', env);
 			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
 				i++;
 			i++;

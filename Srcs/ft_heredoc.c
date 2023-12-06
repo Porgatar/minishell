@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:47:33 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/05 22:25:34 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:05:54 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,20 @@ static char	*ft_unquote(char *word)
 }
 
 /*
-	.
+	this function create a pipe that hear out the terminal to fill it and
+	return a O_RDONLY fd to it.
 */
 int	ft_heredoc(t_cmd *cmds, int i)
 {
-	int	fd[2];
+	int		fd[2];
+//	char	*str;
 
 	pipe(fd);
 	cmds->cmd[i + 1] = ft_unquote(cmds->cmd[i + 1]);
-	printf("> ");
-	while ()
-	{
-
-		if ()
-	}
+//	while (1)
+//	{
+//		str = readline("> ");
+//		if ()
+//	}
 	return (0);
 }
