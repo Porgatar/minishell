@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/05 19:01:39 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/06 23:21:33 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_heredoc.c	-	-	-	-	*/
 
-int	ft_heredoc(t_cmd *cmds, int i);
+int		ft_heredoc(t_cmd *cmds, int i);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 
@@ -123,5 +123,6 @@ void	ft_lstswap(t_env *a, t_env *b);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
+char	*ft_strjoin(const char *s1, const char *s2);
 
 #endif
