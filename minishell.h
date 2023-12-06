@@ -86,14 +86,14 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
 //	-	ft_cd.c
-int		ft_cd(t_cmd *cmds);
+int		ft_cd(t_cmd *cmds, t_env *env);
 
 //	-	ft_echo.c
 int		ft_echo(t_cmd *cmds);
 
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
-int		ft_env_add(t_env **env, const char *key, const char *value);
+int		ft_env_new(t_env **env, const char *key, const char *value);
 t_env	*ft_index_env(char **envp);
 int		ft_env(t_cmd *cmds, t_env *env);
 

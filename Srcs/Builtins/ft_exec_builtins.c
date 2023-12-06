@@ -22,7 +22,7 @@ int	ft_exec_builtins(t_cmd *cmds, t_env *env)
 	if (!ft_strncmp(cmds->cmd[0], "echo", 5))
 		ft_echo(cmds);
 	else if (!ft_strncmp(cmds->cmd[0], "cd", 3))
-		ft_cd(cmds);
+		ft_cd(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "pwd", 4))
 		ft_pwd(cmds);
 	else if (!ft_strncmp(cmds->cmd[0], "export", 7))
