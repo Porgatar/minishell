@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/05 20:00:11 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/05 22:25:23 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ t_env	*ft_get_env_value(const char *key, t_env *env)
 }
 
 /*
+	
+*/
+static int	is_env(t_env **env, const char *key, const char *value)
+{
+	if (ft_get_env_value(key, *env))
+	{
+		
+	}
+}
+
+/*
 	this function add a new list to the env chained list.
 */
 int	ft_env_new(t_env **env, const char *key, const char *value)
@@ -36,6 +47,8 @@ int	ft_env_new(t_env **env, const char *key, const char *value)
 	t_env	*lst;
 	t_env	*new;
 
+	if (is_env(*env, key, value))
+		return (0);
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (-1);
