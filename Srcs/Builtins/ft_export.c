@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/07 17:23:21 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:52:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_env	*ft_sort_env(t_env *env)
 	this function sort the t_env chained list and
 	displays it like ft_env but in a different format.
 */
-static int	ft_display_export(t_cmd *cmds, t_env *env)
+static void	ft_display_export(t_cmd *cmds, t_env *env)
 {
 	t_env	*tmp;
 
@@ -87,7 +87,23 @@ static int	ft_display_export(t_cmd *cmds, t_env *env)
 		env = env->next;
 	}
 	ft_env_clear(tmp);
-	return (0);
+}
+
+/*
+	this function split S and export it in the t_env chained list
+	in format key=value.
+*/
+void	ft_export_env(char *s, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '=')
+		i++;
+	if (!s[i])
+		return ;
+	s[i] = 0;
+	ft_env_new(&env, s, &s[i + 1]);
 }
 
 /*
@@ -104,5 +120,10 @@ int	ft_export(t_cmd *cmds, t_env *env)
 		return (0);
 	}
 	i = 0;
+	while (cmds->cmd[i])
+	{
+		ft_export_env(cmds->cmd[i], env);
+		i++;
+	}
 	return (0);
 }

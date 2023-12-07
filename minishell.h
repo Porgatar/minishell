@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 17:37:21 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:16:22 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_redirect.c	-	-	-	-	*/
 
-void	ft_redirect(t_cmd *cmds);
+void	ft_redirect(t_cmd *cmds, t_env *env);
 void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_heredoc.c	-	-	-	-	*/
 
-int		ft_heredoc(t_cmd *cmds, int i);
+int		ft_heredoc(t_cmd *cmds, int i, t_env *env);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 

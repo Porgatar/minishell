@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 15:51:29 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:15:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	ft_delstr(t_cmd *cmds, int i)
 /*
 
 */
-static void	ft_open(t_cmd *cmds, int i)
+static void	ft_open(t_cmd *cmds, int i, t_env *env)
 {
 	if (cmds->cmd[i][0] == '>' && cmds->fd_out != -1)
 	{
@@ -68,7 +68,7 @@ static void	ft_open(t_cmd *cmds, int i)
 		if (!strncmp(cmds->cmd[i], "<", 2))
 			cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
 		else
-			cmds->fd_in = ft_heredoc(cmds, i);
+			cmds->fd_in = ft_heredoc(cmds, i, env);
 	}
 	ft_delstr(cmds, i);
 }
@@ -76,7 +76,7 @@ static void	ft_open(t_cmd *cmds, int i)
 /*
 
 */
-void	ft_redirect(t_cmd *cmds)
+void	ft_redirect(t_cmd *cmds, t_env *env)
 {
 	int	i;
 	int	fd[2];
@@ -96,7 +96,7 @@ void	ft_redirect(t_cmd *cmds)
 		while (cmds->cmd[i])
 		{
 			if (cmds->cmd[i][0] == '<' || cmds->cmd[i][0] == '>')
-				ft_open(cmds, i);
+				ft_open(cmds, i, env);
 			else
 				i++;
 		}
