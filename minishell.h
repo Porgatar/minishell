@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 17:26:35 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/07 17:37:21 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 
 /*	-	-	-	ft_expand_cmds.c	-	-	-	*/
 
+char	*ft_expand_str(char *s, char sep, t_env *env);
 void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_redirect.c	-	-	-	-	*/
@@ -93,6 +94,7 @@ int		ft_echo(t_cmd *cmds);
 
 //	-	ft_env.c
 t_env	*ft_get_env_value(const char *key, t_env *env);
+int		ft_is_env(t_env *env, const char *key, const char *value);
 int		ft_env_new(t_env **env, const char *key, const char *value);
 t_env	*ft_index_env(char **envp);
 int		ft_env(t_cmd *cmds, t_env *env);

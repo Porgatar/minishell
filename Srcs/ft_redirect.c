@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/05 16:33:13 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:51:29 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ void	ft_redirect(t_cmd *cmds)
 			else
 				i++;
 		}
-//		i = 0;
-//		while (cmds->cmd[i])
-//			printf("%s\n", cmds->cmd[i++]);
 		cmds = cmds->next;
 	}
 }
