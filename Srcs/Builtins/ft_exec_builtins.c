@@ -6,7 +6,7 @@
 /*   By: luhego & parinder                          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:11:43 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 21:43:03 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/07 17:27:29 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_exec_builtins(t_cmd *cmds, t_env *env)
 		ft_pwd(cmds);
 	else if (!ft_strncmp(cmds->cmd[0], "export", 7))
 		ft_export(cmds, env);
-//	else if (!ft_strncmp(cmds->cmd[0], "unset", 6))
-//		ft_unset(cmds);
+	else if (!ft_strncmp(cmds->cmd[0], "unset", 6))
+		ft_unset(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "env", 4))
 		ft_env(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "exit", 5))

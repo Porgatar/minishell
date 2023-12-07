@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/06 23:19:24 by parinder         ###   ########.fr        #
+#    Updated: 2023/12/07 17:29:10 by luhego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS=		Srcs/main.c \
 			Srcs/Builtins/ft_env.c \
 			Srcs/Builtins/ft_exit.c \
 			Srcs/Builtins/ft_cd.c \
+			Srcs/Builtins/ft_unset.c \
 \
 			Srcs/Utils/ft_split.c \
 			Srcs/Utils/ft_substr.c \

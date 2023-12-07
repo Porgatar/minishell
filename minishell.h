@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/06 23:21:33 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:26:35 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ int		ft_env(t_cmd *cmds, t_env *env);
 
 //	-	ft_exec_builtins.c
 int		ft_exec_builtins(t_cmd *cmds, t_env *env);
+
+//	=	ft_unset.c
+int		ft_unset(t_cmd *cmds, t_env *env);
 
 //	-	ft_exit.c
 int		ft_exit(t_cmd *cmds, t_env *env);
