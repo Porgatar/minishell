@@ -6,12 +6,11 @@
 /*   By: luhego & parinder                          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:11:43 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 17:27:29 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/07 17:38:03 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 /*
 	this function execute the corresponding builtins if it is one

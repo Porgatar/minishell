@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/02 14:34:48 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:23:21 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_env	*ft_sort_env(t_env *env)
 */
 static int	ft_display_export(t_cmd *cmds, t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	env = ft_sort_env(env);
 	tmp = env;
@@ -96,10 +96,13 @@ static int	ft_display_export(t_cmd *cmds, t_env *env)
 */
 int	ft_export(t_cmd *cmds, t_env *env)
 {
+	int	i;
+
 	if (!cmds->cmd[1])
 	{
 		ft_display_export(cmds, env);
 		return (0);
 	}
+	i = 0;
 	return (0);
 }

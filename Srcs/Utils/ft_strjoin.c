@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:10:26 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/06 23:21:23 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:31:42 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (0);
-	s1_size = ft_strlen(s1) + 1;
+	s1_size = ft_strlen(s1);
 	s2_size = ft_strlen(s2);
-	str = malloc(sizeof(char) * (s1_size + s2_size));
+	str = malloc(sizeof(char) * (s1_size + s2_size + 1));
 	if (str == 0)
 		return (0);
-	ft_strlcpy(str, s1, s1_size);
+	ft_strlcpy(str, s1, s1_size + 1);
 	ft_strlcpy(&str[s1_size], s2, s2_size + 1);
 	return (str);
 }
