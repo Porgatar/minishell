@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:47:33 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/07 20:25:31 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:42:10 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int	ft_heredoc(t_cmd *cmds, int i, t_env *env)
 		str = ft_expand_str(str, 0, env);
 		write(fd[1], str, ft_strlen(str));
 		write(fd[1], "\n", 1);
+		free(str);
+		if (!cmds->cmd[i + 1][0])
+			break ;
 	}
 	close(fd[1]);
 	return (fd[0]);
