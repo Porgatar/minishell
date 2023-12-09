@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/02 16:56:49 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/09 22:05:09 by parinder         ###   ########.fr       */
+/*   Created: 2023/12/09 17:38:02 by luhego & parinder #+#    #+#             */
+/*   Updated: 2023/12/09 21:26:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	ft_exitshell(const char *error)
+static void	sigint_prompt(int sig)
 {
-	if (!error)
-		write(1, "exit\n", 5);
-	if (errno)
-		perror(error);
-	exit(errno);
+	(void)sig;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-int	ft_exit(t_cmd *cmds, t_env *env)
+void	ft_setsig_handler(int mode)
 {
-	if (!cmds->next && !cmds->prev)
-	{
-		ft_env_clear(env);
-		ft_cmd_clear(cmds);
-		ft_exitshell(0);
-	}
-	return (-1);
+	struct sigaction	sa;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	if (mode == PROMPT)
+		sa.sa_handler = &sigint_prompt;
+	sigaction(SIGINT, &sa, 0);
 }

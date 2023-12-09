@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/07 17:29:10 by luhego           ###   ########.fr        #
+#    Updated: 2023/12/09 19:15:11 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,14 @@ CFLAGS=		-Wall -Werror -Wextra -g
 OBJ=		$(SRCS:.c=.o)
 
 SRCS=		Srcs/main.c \
+			Srcs/ft_check_syntax.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
 			Srcs/ft_expand_cmds.c \
 			Srcs/ft_redirect.c \
 			Srcs/ft_heredoc.c \
 			Srcs/ft_exec_pipeline.c \
+			Srcs/signals.c \
 \
 			Srcs/Builtins/ft_exec_builtins.c \
 			Srcs/Builtins/ft_echo.c \
