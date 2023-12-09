@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 20:16:22 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/09 22:20:20 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <errno.h>
 
 /*	-	-	-	PrintColors	-	-	-	-	-	*/
 
@@ -31,6 +33,9 @@
 # define RESET	"\033[0m"
 
 /*	-	-	-	Defines	-	-	-	-	-	-	*/
+
+# define PROMPT		1
+# define HEREDOC	2
 
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
@@ -50,13 +55,13 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_expand
-{
-	t_env			*env;
-	struct s_expand	*next;
-}	t_expand;
-
 /*	-	-	-	main.c	-	-	-	-	-	-	*/
+
+void	ft_promptloop(t_env *env);
+
+/*	-	-	-	ft_check_syntax.c	-	-	*/
+
+int		ft_check_syntax(char **tokens);
 
 /*	-	-	-	ft_split_to_tokens.c	-	-	*/
 
@@ -84,6 +89,10 @@ int		ft_heredoc(t_cmd *cmds, int i, t_env *env);
 
 void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 
+/*	-	-	-	signals.c	-	-	-	-	-	*/
+
+void	ft_setsig_handler(int mode);
+
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
 //	-	ft_cd.c
@@ -102,10 +111,11 @@ int		ft_env(t_cmd *cmds, t_env *env);
 //	-	ft_exec_builtins.c
 int		ft_exec_builtins(t_cmd *cmds, t_env *env);
 
-//	=	ft_unset.c
+//	-	ft_unset.c
 int		ft_unset(t_cmd *cmds, t_env *env);
 
 //	-	ft_exit.c
+void	ft_exitshell(const char *error);
 int		ft_exit(t_cmd *cmds, t_env *env);
 
 //	-	ft_export.c

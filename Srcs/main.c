@@ -6,12 +6,12 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 20:16:45 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/09 22:25:42 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 static void	print_tab(char **tokens)
 {
 	int		i;
@@ -64,40 +64,53 @@ static void	print_env(t_env *cmds)
 	}
 	printf("\n");
 }
+*/
+
+/*
+	this function display the prompt and wait for readline to execute it.
+*/
+void	ft_promptloop(t_env *env)
+{
+	char	*line;
+	char	**tokens;
+	t_cmd	*cmds;
+
+	line = readline("Minishell❤️ :");
+	add_history(line);
+	tokens = ft_split_to_tokens(line);
+	if (ft_check_syntax(tokens))
+	{
+//		print_tab(tokens);
+		cmds = ft_parse_to_cmds(tokens);
+		if (cmds)
+		{
+//			print_list(cmds, "**cmds(one pipe per line)");
+			ft_expand_cmds(cmds, env);
+//			print_list(cmds, "**expanded_cmds(one pipe per line)");
+			ft_redirect(cmds, env);
+//			print_list(cmds, "**ft_redirected_cmds(one pipe per line)");
+			ft_exec_pipeline(cmds, env);
+			waitpid(0, 0, 0);
+			ft_cmd_clear(cmds);
+		}
+	}
+	else if (tokens)
+		free(tokens); //ft_exit();
+}
 
 /*
 	this programm is a feature less bash shell.
 */
 int	main(int ac, char **av, char **envp)
 {
-	char	**tokens;
-	t_cmd	*cmds;
-	t_env	*env;
+	t_env				*env;
 
 	(void)ac;
 	(void)av;
 	env = ft_index_env(envp);
-	print_env(env);
+//	print_env(env);
+	ft_setsig_handler(PROMPT);
 	while (1)
-	{
-		tokens = ft_split_to_tokens(readline("Minishell❤️ :"));
-		if (tokens)
-		{
-			print_tab(tokens);
-			cmds = ft_parse_to_cmds(tokens);
-			free(tokens);
-			if (cmds)
-			{
-				print_list(cmds, "**cmds(one pipe per line)");
-				ft_expand_cmds(cmds, env);
-				print_list(cmds, "**expanded_cmds(one pipe per line)");
-				ft_redirect(cmds, env);
-				print_list(cmds, "**ft_redirected_cmds(one pipe per line)");
-				ft_exec_pipeline(cmds, env);
-				waitpid(0, 0, 0);
-				ft_cmd_clear(cmds);
-			}
-		}
-	}
+		ft_promptloop(env);
 	return (0);
 }

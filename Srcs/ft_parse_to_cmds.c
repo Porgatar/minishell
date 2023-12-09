@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/11/22 20:39:02 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:49:23 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 	{
 		if (!cmds)
 		{
-			printf("%sError: not enough memory%s\n", RED, RESET);
 			ft_cmd_clear(cmds);
 			return (0);
 		}
@@ -73,5 +72,6 @@ t_cmd	*ft_parse_to_cmds(char **tokens)
 		}
 	}
 	ft_rollback_lst(&cmds);
+	free(tokens);
 	return (cmds);
 }
