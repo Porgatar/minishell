@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/02 22:15:50 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:53:40 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static char	*find_path(char *path, char *cmd)
 	origin_path = malloc(sizeof(char) * (path_size + cmd_size));
 	if (!origin_path)
 	{
+		printf(RED);
 		perror("path");
+		printf(RESET);
 		return (0);
 	}
 	origin_path[0] = 0;
@@ -81,18 +83,26 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 {
 	char	*path;
 
+	dup2(cmds->fd_in, STDIN_FILENO);
+	dup2(cmds->fd_out, STDOUT_FILENO);
+	ft_close_fds(cmds);
 	if (access(cmds->cmd[0], X_OK) == -1)
 	{
 		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
-			write(1, "command not found:\n", 19);
-			return ;
+			printf("%s%s : command not found !\n%s", RED, cmds->cmd[0], RESET);
+			ft_cmd_clear(cmds);
+			ft_env_clear(env);
+			exit(127);
 		}
 		free(cmds->cmd[0]);
 		cmds->cmd[0] = path;
 	}
 	execve(cmds->cmd[0], cmds->cmd, 0);
+	ft_cmd_clear(cmds);
+	ft_env_clear(env);
+	exit(g_status);
 }
 
 /*
@@ -101,22 +111,17 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 {
 	pid_t	pid;
+	int		status;
 
+	g_status = 0;
+	ft_set_sighandler(FORK);
 	while (cmds)
 	{
 		if (!ft_exec_builtins(cmds, env))
 		{
 			pid = fork();
 			if (pid == 0)
-			{
-				dup2(cmds->fd_in, STDIN_FILENO);
-				dup2(cmds->fd_out, STDOUT_FILENO);
-				ft_close_fds(cmds);
 				ft_exec_cmd(cmds, env);
-				ft_cmd_clear(cmds);
-				ft_env_clear(env);
-				exit(0);
-			}
 		}
 		if (cmds->fd_in != 0)
 			close(cmds->fd_in);
@@ -124,4 +129,9 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 			close(cmds->fd_out);
 		cmds = cmds->next;
 	}
+	waitpid(0, &status, 0);
+	status = WEXITSTATUS(status);
+	if (!g_status)
+		g_status = status;
+	ft_set_sighandler(PROMPT);
 }

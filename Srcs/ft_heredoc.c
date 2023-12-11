@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:47:33 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/07 21:42:10 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:23:12 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_heredoc(t_cmd *cmds, int i, t_env *env)
 
 	pipe(fd);
 	cmds->cmd[i + 1] = ft_unquote(cmds->cmd[i + 1]);
+	ft_set_sighandler(HEREDOC);
 	while (1)
 	{
 		str = readline("> ");
@@ -71,5 +72,6 @@ int	ft_heredoc(t_cmd *cmds, int i, t_env *env)
 			break ;
 	}
 	close(fd[1]);
+	ft_set_sighandler(FORK);
 	return (fd[0]);
 }

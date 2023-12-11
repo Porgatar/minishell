@@ -6,11 +6,12 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 20:05:38 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/10 19:58:42 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdlib.h>
 
 /*
 	this fuction go though the t_env chained list to find key and
