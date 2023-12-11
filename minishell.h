@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/09 22:20:20 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:09:28 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <signal.h>
 # include <errno.h>
 
+extern int	g_status;
+
 /*	-	-	-	PrintColors	-	-	-	-	-	*/
 
 # define RED	"\033[0;31m"
@@ -35,7 +37,8 @@
 /*	-	-	-	Defines	-	-	-	-	-	-	*/
 
 # define PROMPT		1
-# define HEREDOC	2
+# define FORK		2
+# define HEREDOC	3
 
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
@@ -91,7 +94,7 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	signals.c	-	-	-	-	-	*/
 
-void	ft_setsig_handler(int mode);
+void	ft_set_sighandler(int mode);
 
 /*	-	-	-	builtins dir	-	-	-	-	*/
 
@@ -139,5 +142,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_itoa(int n);
 
 #endif

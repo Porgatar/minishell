@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 16:10:59 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:31:02 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,42 @@ static int	ft_join(char **expanded, char *s, char quote, char sep)
 }
 
 /*
+	this function expand the errno global var and
+	return 1 if status('?') has been found.
+	return 0 if not.
+*/
+static int	ft_is_status(char **expanded, char *s)
+{
+	char	*status;
+	char	*joined;
+	int		i;
+
+	i = 2;
+	if (s[1] && s[1] == '?')
+	{
+		status = ft_itoa(g_status);
+		if (*expanded)
+		{
+			joined = ft_strjoin(*expanded, status);
+			free(*expanded);
+			free(status);
+			*expanded = joined;
+		}
+		else
+			*expanded = status;
+		while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
+			i++;
+		status = ft_substr(s, 2, i - 2);
+		joined = ft_strjoin(*expanded, status);
+		free(*expanded);
+		free(status);
+		*expanded = joined;
+		return (1);
+	}
+	return (0);
+}
+
+/*
 	this function expand the found key and join it to *expanded if
 	succed, return i readed char in the process.
 */
@@ -62,7 +98,7 @@ static int	ft_is_key(char **expanded, char *s, t_env *env)
 		key = ft_substr(s, 1, i);
 	var = ft_get_env_value(key, env);
 	free(key);
-	if (var)
+	if (!ft_is_status(expanded, s) && var)
 	{
 		if (*expanded)
 		{
