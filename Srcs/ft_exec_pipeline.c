@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 04:19:12 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:47:08 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,15 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 	dup2(cmds->fd_in, STDIN_FILENO);
 	dup2(cmds->fd_out, STDOUT_FILENO);
 	ft_close_fds(cmds);
-	if (access(cmds->cmd[0], X_OK) == -1)
+	if (access(cmds->cmd[0], X_OK | O_DIRECTORY) == -1)
 	{
 		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
+			printf("ok!\n");
 			g_status = 127;
 			if (!access(cmds->cmd[0], F_OK))
 				g_status = 126;
-//			else if (opendir(cmds->cmd[0]) && !close(3))
-//				g_status = 125;
 			ft_cmd_clear(cmds);
 			ft_env_clear(env);
 			exit(g_status);
@@ -115,7 +114,6 @@ static void	ft_waitpid(t_cmd *cmds)
 	ft_rollback_lst(&cmds);
 	while (cmds && cmds->pid > 0)
 	{
-		g_status = 0;
 		waitpid(cmds->pid, &status, 0);
 		status = WEXITSTATUS(status);
 		if (!g_status)
@@ -123,13 +121,14 @@ static void	ft_waitpid(t_cmd *cmds)
 		if (g_status == 127)
 			printf("%s%s: Command not found !%s\n", RED, cmds->cmd[0], RESET);
 		else if (g_status == 126)
-			printf("%s%s: Permission denied !%s\n", RED, cmds->cmd[0], RESET);
-//		else if (g_status == 125)
-//		{
-//			printf("%s%s: Is a directory !%s\n", RED, cmds->cmd[0], RESET);
-//			g_status = 126;
-//		}
+		{
+			if (open(cmds->cmd[0], O_DIRECTORY) && !close(3))
+				printf("%s%s: Is a directory !%s\n", RED, cmds->cmd[0], RESET);
+			else
+				printf("%s%s: Permission denied !%s\n", RED, cmds->cmd[0], RESET);
+		}
 		cmds = cmds->next;
+		g_status = 0;
 	}
 }
 

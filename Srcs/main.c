@@ -6,12 +6,12 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 03:32:30 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:58:32 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
+
 static void	print_tab(char **tokens)
 {
 	int		i;
@@ -49,6 +49,7 @@ static void	print_list(t_cmd *cmds, char *s)
 	}
 }
 
+/*
 static void	print_env(t_env *cmds)
 {
 	t_env	*cmd;
@@ -83,16 +84,16 @@ void	ft_promptloop(t_env *env)
 	tokens = ft_split_to_tokens(line);
 	if (ft_check_syntax(tokens))
 	{
-//		print_tab(tokens);
+		print_tab(tokens);
 		cmds = ft_parse_to_cmds(tokens);
 		if (cmds)
 		{
-//			print_list(cmds, "**cmds(one pipe per line)");
+			print_list(cmds, "**cmds(one pipe per line)");
 			ft_expand_cmds(cmds, env);
-//			print_list(cmds, "**expanded_cmds(one pipe per line)");
-			ft_redirect(cmds, env);
-//			print_list(cmds, "**ft_redirected_cmds(one pipe per line)");
+			print_list(cmds, "**expanded_cmds(one pipe per line)");
 			g_status = 0;
+			ft_redirect(cmds, env);
+			print_list(cmds, "**ft_redirected_cmds(one pipe per line)");
 			ft_exec_pipeline(cmds, env);
 			ft_cmd_clear(cmds);
 		}

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 01:59:42 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 22:20:21 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,23 @@ static void	ft_delstr(t_cmd *cmds, int i)
 */
 static void	ft_check_redirect_error(t_cmd *cmds, int i)
 {
-	if (cmds->fd_in == -1 || cmds->fd_out == -1)
+	if (cmds->fd_in < 0 || cmds->fd_out < 0)
 	{
 		cmds->error = 1;
-		printf(RED);
-		printf("minishell: %s: No such file or directory\n", cmds->cmd[i + 1]);
-		printf(RESET);
+
+		if (cmds->fd_in == -1 || cmds->fd_out == -1)
+		{
+			printf(RED);
+			printf("minishell: %s: No such file or directory\n", cmds->cmd[i + 1]);
+			printf(RESET);
+		}
 	}
 }
 
 /*
 
 */
-static void	ft_open(t_cmd *cmds, int i, t_env *env)
+static void	ft_open(t_cmd *cmds, int i)
 {
 	if (!cmds->error && cmds->cmd[i][0] == '>' && cmds->fd_out != -1)
 	{
@@ -84,7 +88,7 @@ static void	ft_open(t_cmd *cmds, int i, t_env *env)
 		if (!strncmp(cmds->cmd[i], "<", 2))
 			cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
 		else
-			cmds->fd_in = ft_heredoc(cmds, i, env);
+			cmds->fd_in = dup(cmds->heredoc);
 	}
 	if (!cmds->error)
 		ft_check_redirect_error(cmds, i);
@@ -99,8 +103,10 @@ void	ft_redirect(t_cmd *cmds, t_env *env)
 	int	i;
 	int	fd[2];
 
+	ft_heredoc(cmds, env);
 	while (cmds)
 	{
+		printf("error = %d\n", cmds->error);
 		if (!cmds->prev)
 			cmds->fd_in = 0;
 		cmds->fd_out = 1;
@@ -114,7 +120,7 @@ void	ft_redirect(t_cmd *cmds, t_env *env)
 		while (cmds->cmd[i])
 		{
 			if (cmds->cmd[i][0] == '<' || cmds->cmd[i][0] == '>')
-				ft_open(cmds, i, env);
+				ft_open(cmds, i);
 			else
 				i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 04:13:38 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 22:21:06 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	int				error;
+	int				heredoc;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -89,7 +90,7 @@ void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_heredoc.c	-	-	-	-	*/
 
-int		ft_heredoc(t_cmd *cmds, int i, t_env *env);
+void	ft_heredoc(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 
