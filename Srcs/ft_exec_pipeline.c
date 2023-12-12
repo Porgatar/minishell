@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 18:47:08 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 23:23:27 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ static char	*get_path(char *cmd, t_env *env)
 	char	**cmd_tab;
 	char	*path;
 	int		i;
-
-	cmd_tab = ft_split(ft_get_env_value("PATH", env)->value, ':');
+	
+	if (ft_get_env_value("PATH", env) != 0)
+		cmd_tab = ft_split(ft_get_env_value("PATH", env)->value, ':');
+	else
+		cmd_tab = 0;
 	if (!cmd_tab)
 		return (NULL);
 	i = 0;
@@ -86,7 +89,6 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
-			printf("ok!\n");
 			g_status = 127;
 			if (!access(cmds->cmd[0], F_OK))
 				g_status = 126;
