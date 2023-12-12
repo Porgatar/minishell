@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/10 21:09:28 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 04:13:38 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <errno.h>
+# include <dirent.h>
 
 extern int	g_status;
 
@@ -44,9 +45,11 @@ extern int	g_status;
 
 typedef struct s_cmd
 {
+	pid_t			pid;
 	char			**cmd;
 	int				fd_in;
 	int				fd_out;
+	int				error;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;

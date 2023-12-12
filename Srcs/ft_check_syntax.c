@@ -6,12 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:08:17 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/09 22:23:58 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:22:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+
+*/
 int	ft_check_syntax(char **tokens)
 {/*
 	int	i;

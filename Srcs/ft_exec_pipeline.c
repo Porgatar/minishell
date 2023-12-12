@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/11 18:53:40 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 04:19:12 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ static char	*find_path(char *path, char *cmd)
 	cmd_size = ft_strlen(cmd) + 1;
 	origin_path = malloc(sizeof(char) * (path_size + cmd_size));
 	if (!origin_path)
-	{
-		printf(RED);
-		perror("path");
-		printf(RESET);
 		return (0);
-	}
 	origin_path[0] = 0;
 	ft_strlcpy(origin_path, path, path_size);
 	origin_path[path_size - 1] = '/';
@@ -91,47 +86,77 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
-			printf("%s%s : command not found !\n%s", RED, cmds->cmd[0], RESET);
+			g_status = 127;
+			if (!access(cmds->cmd[0], F_OK))
+				g_status = 126;
+//			else if (opendir(cmds->cmd[0]) && !close(3))
+//				g_status = 125;
 			ft_cmd_clear(cmds);
 			ft_env_clear(env);
-			exit(127);
+			exit(g_status);
 		}
 		free(cmds->cmd[0]);
 		cmds->cmd[0] = path;
 	}
 	execve(cmds->cmd[0], cmds->cmd, 0);
 	ft_cmd_clear(cmds);
-	ft_env_clear(env);
-	exit(g_status);
+	ft_exit(0, env);
 }
 
 /*
+	this function wait the pid of all fork in the launch order,
+	update the g_status global var to match exit status and
+	print errors in consequences.
+*/
+static void	ft_waitpid(t_cmd *cmds)
+{
+	int	status;
 
+	ft_rollback_lst(&cmds);
+	while (cmds && cmds->pid > 0)
+	{
+		g_status = 0;
+		waitpid(cmds->pid, &status, 0);
+		status = WEXITSTATUS(status);
+		if (!g_status)
+			g_status = status;
+		if (g_status == 127)
+			printf("%s%s: Command not found !%s\n", RED, cmds->cmd[0], RESET);
+		else if (g_status == 126)
+			printf("%s%s: Permission denied !%s\n", RED, cmds->cmd[0], RESET);
+//		else if (g_status == 125)
+//		{
+//			printf("%s%s: Is a directory !%s\n", RED, cmds->cmd[0], RESET);
+//			g_status = 126;
+//		}
+		cmds = cmds->next;
+	}
+}
+
+/*
+	this execute all the right cmds in the pipeline
 */
 void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 {
-	pid_t	pid;
-	int		status;
-
-	g_status = 0;
 	ft_set_sighandler(FORK);
 	while (cmds)
 	{
-		if (!ft_exec_builtins(cmds, env))
+		if (!cmds->error && !ft_exec_builtins(cmds, env))
 		{
-			pid = fork();
-			if (pid == 0)
+			cmds->pid = fork();
+			if (cmds->pid == 0)
 				ft_exec_cmd(cmds, env);
 		}
-		if (cmds->fd_in != 0)
+		else
+			cmds->pid = 0;
+		if (cmds->fd_in > 0)
 			close(cmds->fd_in);
-		if (cmds->fd_out != 1)
+		if (cmds->fd_out > 1)
 			close(cmds->fd_out);
+		if (!cmds->next)
+			break ;
 		cmds = cmds->next;
 	}
-	waitpid(0, &status, 0);
-	status = WEXITSTATUS(status);
-	if (!g_status)
-		g_status = status;
+	ft_waitpid(cmds);
 	ft_set_sighandler(PROMPT);
 }

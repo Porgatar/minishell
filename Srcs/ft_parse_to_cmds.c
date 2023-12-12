@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:51:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/09 20:49:23 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 02:33:16 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ static int	ft_get_cmd(char **tokens, t_cmd **cmds, t_cmd *prev)
 	is_pipe = 0;
 	if (tokens[0][0] == '|')
 	{
-		tokens++;
 		is_pipe = 1;
+		free(tokens[0]);
 	}
-	while (tokens[i] && tokens[i][0] != '|')
+	while (tokens[i + is_pipe] && tokens[i + is_pipe][0] != '|')
 		i++;
 	(*cmds)->cmd = malloc(sizeof(char *) * (i + 1));
 	j = 0;
 	while (j < i)
 	{
-		(*cmds)->cmd[j] = tokens[j];
+		(*cmds)->cmd[j] = tokens[j + is_pipe];
 		j++;
 	}
+	(*cmds)->error = 0;
 	(*cmds)->cmd[j] = 0;
 	(*cmds)->prev = prev;
 	(*cmds)->next = 0;

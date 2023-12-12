@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/10 20:31:02 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 03:08:28 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_is_status(char **expanded, char *s)
 		}
 		else
 			*expanded = status;
-		while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
+		while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
 			i++;
 		status = ft_substr(s, 2, i - 2);
 		joined = ft_strjoin(*expanded, status);
@@ -89,8 +89,8 @@ static int	ft_is_key(char **expanded, char *s, t_env *env)
 	char	*key;
 	int		i;
 
-	i = 0;
-	while (s[i] && !is_space(s[i]) && s[i] != '\'' && s[i] != '"')
+	i = 1;
+	while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
 		i++;
 	if (s[i])
 		key = ft_substr(s, 1, i - 1);
