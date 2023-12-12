@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:38:02 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/11 18:51:00 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:33:35 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	sig_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		g_status = 3;
+		g_status = 130;
+		close(0);
 	}
 	else if (sig == SIGQUIT)
 		g_status = 131;
