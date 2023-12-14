@@ -260,6 +260,3 @@ env coucou
 ---------------------------------------------------------------------------------------------
 clear | env -l
 	-> $? = 125
-	
-	
-getting leak when "cat | ls" and ctrl-c the cat prompt...
