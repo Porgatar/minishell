@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/10 19:58:42 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/13 01:19:26 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_env(t_cmd *cmds, t_env *env)
 {
 	if (cmds->cmd[1])
 	{
-		perror(cmds->cmd[1]);
+		printf("%senv: invalid argument: ‘%s'%s\n", RED, cmds->cmd[1], RESET);
 		return (127);
 	}
 	while (env)
