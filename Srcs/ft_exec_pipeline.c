@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 23:23:27 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/14 15:36:55 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ static void	ft_waitpid(t_cmd *cmds)
 	ft_rollback_lst(&cmds);
 	while (cmds && cmds->pid > 0)
 	{
+		g_status = 0;
 		waitpid(cmds->pid, &status, 0);
 		status = WEXITSTATUS(status);
 		if (!g_status)
@@ -130,7 +131,6 @@ static void	ft_waitpid(t_cmd *cmds)
 				printf("%s%s: Permission denied !%s\n", RED, cmds->cmd[0], RESET);
 		}
 		cmds = cmds->next;
-		g_status = 0;
 	}
 }
 

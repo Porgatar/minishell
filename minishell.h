@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 22:21:06 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:55:10 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int		ft_exec_builtins(t_cmd *cmds, t_env *env);
 int		ft_unset(t_cmd *cmds, t_env *env);
 
 //	-	ft_exit.c
-void	ft_exitshell(const char *error);
 int		ft_exit(t_cmd *cmds, t_env *env);
 
 //	-	ft_export.c
@@ -147,5 +146,6 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_itoa(int n);
+int		ft_atoi(const char *nptr);
 
 #endif

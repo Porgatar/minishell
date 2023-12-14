@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/10 19:57:39 by parinder         ###   ########.fr        #
+#    Updated: 2023/12/14 15:55:28 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRCS=		Srcs/main.c \
 			Srcs/Utils/ft_strlen.c \
 			Srcs/Utils/ft_strdup.c \
 			Srcs/Utils/ft_strjoin.c \
-			Srcs/Utils/ft_itoa.c
+			Srcs/Utils/ft_itoa.c \
+			Srcs/Utils/ft_atoi.c
 
 all:		$(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder                          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:11:43 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/07 17:38:03 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:24:04 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@
 */
 int	ft_exec_builtins(t_cmd *cmds, t_env *env)
 {
+	int	exit;
+
 	if (!ft_strncmp(cmds->cmd[0], "echo", 5))
-		ft_echo(cmds);
+		exit = ft_echo(cmds);
 	else if (!ft_strncmp(cmds->cmd[0], "cd", 3))
-		ft_cd(cmds, env);
+		exit = ft_cd(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "pwd", 4))
-		ft_pwd(cmds);
+		exit = ft_pwd(cmds);
 	else if (!ft_strncmp(cmds->cmd[0], "export", 7))
-		ft_export(cmds, env);
+		exit = ft_export(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "unset", 6))
-		ft_unset(cmds, env);
+		exit = ft_unset(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "env", 4))
-		ft_env(cmds, env);
+		exit = ft_env(cmds, env);
 	else if (!ft_strncmp(cmds->cmd[0], "exit", 5))
-		ft_exit(cmds, env);
+		exit = ft_exit(cmds, env);
 	else
 		return (0);
+	g_status = exit;
 	return (1);
 }
