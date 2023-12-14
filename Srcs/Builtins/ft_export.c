@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/07 19:52:37 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:14:18 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	ft_export(t_cmd *cmds, t_env *env)
 		ft_display_export(cmds, env);
 		return (0);
 	}
+	if (cmds->prev || cmds->next)
+		return (0);
 	i = 0;
 	while (cmds->cmd[i])
 	{

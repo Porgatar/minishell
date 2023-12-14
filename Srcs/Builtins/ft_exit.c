@@ -6,12 +6,15 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:56:49 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 04:13:22 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:18:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+/*
+
+*/
 int	ft_exit(t_cmd *cmds, t_env *env)
 {
 	if (!cmds)
@@ -22,9 +25,13 @@ int	ft_exit(t_cmd *cmds, t_env *env)
 	}
 	else if (!cmds->next && !cmds->prev)
 	{
+		printf("exit\n");
+		if (cmds->cmd[1])
+			g_status = ft_atoi(cmds->cmd[1]);
+		else
+			g_status = 0;
 		ft_env_clear(env);
 		ft_cmd_clear(cmds);
-		printf("exit\n");
 		exit(g_status);
 	}
 	return (-1);

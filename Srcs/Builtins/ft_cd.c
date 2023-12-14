@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:59:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 23:46:26 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/14 12:26:09 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	ft_cd(t_cmd *cmds, t_env *env)
 	static char	pwd[1024];
 	
 	if (cmds->cmd[2])
+	{
 		printf("cd: too many arguments\n");
+		return (1);
+	}
 	getcwd(pwd, 1024);
 	ft_strlcpy(old_pwd, pwd, ft_strlen(pwd) + 1);
 	ft_env_new(&env, "OLDPWD", old_pwd);
