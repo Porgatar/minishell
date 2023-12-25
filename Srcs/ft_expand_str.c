@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_cmds.c                                   :+:      :+:    :+:   */
+/*   ft_expand_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 03:08:28 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/17 19:30:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 	this function join to *expanded the non-special chars that are found in S
 	if succed, return i readed char in the process.
 */
-static int	ft_join(char **expanded, char *s, char quote, char sep)
+static int	ft_join(char **expanded, char *s, char sep)
 {
 	char	*new;
 	char	*joined;
 	int		i;
 
 	i = -1;
-	while (s[++i] && s[i] != quote)
-		if (s[i] == '$' && (!sep || quote != sep))
+	while (s[++i])
+		if (s[i] == '$' || (sep && (s[i] == '\'' || s[i] == '"')))
 			break ;
 	new = ft_substr(s, 0, i);
 	joined = ft_strjoin(*expanded, new);
@@ -137,31 +137,10 @@ char	*ft_expand_str(char *s, char sep, t_env *env)
 			i++;
 		}
 		else
-			i += ft_join(&expanded, &s[i], quote, sep);
+			i += ft_join(&expanded, &s[i], sep);
 		if (i == -1)
 			return (s);
 	}
 	free(s);
 	return (expanded);
-}
-
-/*
-	this function expand all key('$') that are to be found in the pipeline.
-*/
-void	ft_expand_cmds(t_cmd *cmds, t_env *env)
-{
-	int	i;
-
-	while (cmds)
-	{
-		i = 0;
-		while (cmds->cmd[i])
-		{
-			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], '\'', env);
-			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
-				i++;
-			i++;
-		}
-		cmds = cmds->next;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/13 01:14:11 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:32:37 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,27 @@ static void	print_env(t_env *cmds)
 */
 
 int	g_status;
+
+/*
+	this function expand all key('$') that are to be found in the pipeline.
+*/
+static void	ft_expand_cmds(t_cmd *cmds, t_env *env)
+{
+	int	i;
+
+	while (cmds)
+	{
+		i = 0;
+		while (cmds->cmd[i])
+		{
+			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], '\'', env);
+			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
+				i++;
+			i++;
+		}
+		cmds = cmds->next;
+	}
+}
 
 /*
 	this function display the prompt and wait for readline to execute it.
