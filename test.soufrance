@@ -232,26 +232,3 @@ export tkt
 export tkt=oui 1mdr
 	-> invalid identifier + $? = 1 + $tkt = oui
 =============================================================================================
-UNSET	- je suppose que tu doit juste afficher un message d'erreur et return 1 s'il y a un chiffre dans les argument de la commande, en plus de ca s'il y a un '-' au debut du premiere argument tu doit ecrire un autre message d'erreur et return 2
-enssuite tu fait la meme condition que pour ft_exit, s'il y a un pipe, donc une cmd avant ou apres tu ne doit rien faire et return 0.
-et garde tout ca dans une boucle de while (cmds->cmd[i]) c'est super :)
-si jamais dans le prossesus tu peux laisser la function qui va te permetre de savoir s'il y des chiffre dans les argument que tu recois, accessible au autres fichier pour que je puisse l'utiliser dans ft_export ca serais genial <3
-=============================================================================================
-unset 6_a
-	bash: export: `6_a=b': not a valid identifier
-	-> $? = 1
----------------------------------------------------------------------------------------------
-unset -lol
-	-> invalid option + $? = 2
----------------------------------------------------------------------------------------------
-unset 0oui
-	-> invalid identifier + $? = 1
----------------------------------------------------------------------------------------------
-unset COUCOU | ls
-	-> COUCOU existe toujours
----------------------------------------------------------------------------------------------
-unset tkt 1mdr
-	-> invalid identifier + $? = 1 + $tkt n'existe plus
-=============================================================================================
-ENV
-=============================================================================================

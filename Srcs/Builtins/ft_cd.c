@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:59:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/14 12:26:09 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:04:17 by luhego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_cd(t_cmd *cmds, t_env *env)
 {
 	static char	old_pwd[1024];
 	static char	pwd[1024];
-	
+
 	if (cmds->cmd[2])
 	{
 		printf("cd: too many arguments\n");
