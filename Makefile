@@ -6,7 +6,7 @@
 #    By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 15:28:55 by luhego & parinder #+#    #+#              #
-#    Updated: 2023/12/14 15:55:28 by parinder         ###   ########.fr        #
+#    Updated: 2023/12/17 18:33:23 by parinder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS=		Srcs/main.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
 			Srcs/ft_expand_cmds.c \
+			Srcs/ft_expand_key.c \
 			Srcs/ft_redirect.c \
 			Srcs/ft_heredoc.c \
 			Srcs/ft_exec_pipeline.c \

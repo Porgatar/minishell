@@ -114,21 +114,24 @@ static void	ft_waitpid(t_cmd *cmds)
 	int	status;
 
 	ft_rollback_lst(&cmds);
-	while (cmds && cmds->pid > 0)
+	while (cmds)
 	{
-		g_status = 0;
+		if (cmds->pid > 0)
+			g_status = 0;
 		waitpid(cmds->pid, &status, 0);
 		status = WEXITSTATUS(status);
+		if (!cmds->pid)
+			status = 0;
 		if (!g_status)
 			g_status = status;
 		if (g_status == 127)
-			printf("%s%s: Command not found !%s\n", RED, cmds->cmd[0], RESET);
+			printf("%s%s: Command not found%s\n", RED, cmds->cmd[0], RESET);
 		else if (g_status == 126)
 		{
 			if (open(cmds->cmd[0], O_DIRECTORY) && !close(3))
-				printf("%s%s: Is a directory !%s\n", RED, cmds->cmd[0], RESET);
+				printf("%s%s: Is a directory%s\n", RED, cmds->cmd[0], RESET);
 			else
-				printf("%s%s: Permission denied !%s\n", RED, cmds->cmd[0], RESET);
+				printf("%s%s: Permission denied%s\n", RED, cmds->cmd[0], RESET);
 		}
 		cmds = cmds->next;
 	}
@@ -142,6 +145,8 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 	ft_set_sighandler(FORK);
 	while (cmds)
 	{
+		if (!cmds->cmd || !cmds->cmd[0])
+			cmds->error = 1;
 		if (!cmds->error && !ft_exec_builtins(cmds, env))
 		{
 			cmds->pid = fork();

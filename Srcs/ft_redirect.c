@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 22:20:21 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/17 19:33:31 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_check_redirect_error(t_cmd *cmds, int i)
 	if (cmds->fd_in < 0 || cmds->fd_out < 0)
 	{
 		cmds->error = 1;
-
+		g_status = 1;
 		if (cmds->fd_in == -1 || cmds->fd_out == -1)
 		{
 			printf(RED);
@@ -98,15 +98,13 @@ static void	ft_open(t_cmd *cmds, int i)
 /*
 
 */
-void	ft_redirect(t_cmd *cmds, t_env *env)
+void	ft_redirect(t_cmd *cmds)
 {
 	int	i;
 	int	fd[2];
 
-	ft_heredoc(cmds, env);
 	while (cmds)
 	{
-		printf("error = %d\n", cmds->error);
 		if (!cmds->prev)
 			cmds->fd_in = 0;
 		cmds->fd_out = 1;
