@@ -140,5 +140,4 @@ void	ft_heredoc(t_cmd *cmds, t_env *env)
 			break ;
 		cmds = cmds->next;
 	}
-	ft_rollback_lst(&cmds);
 }

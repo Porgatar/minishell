@@ -25,8 +25,10 @@ int	ft_get_option(const char *str)
 		return (0);
 	i = 0;
 	is_n = 0;
-	if (str[0] && str[0] == '-')
+	if (str[0] == '-')
 		i++;
+	else
+		return (0);
 	while (str[i])
 	{
 		if (str[i++] == 'n')

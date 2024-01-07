@@ -24,7 +24,8 @@ SRCS=		Srcs/main.c \
 			Srcs/ft_check_syntax.c \
 			Srcs/ft_split_to_tokens.c \
 			Srcs/ft_parse_to_cmds.c \
-			Srcs/ft_expand_str.c \
+			Srcs/ft_expand_cmds.c \
+			Srcs/ft_expand_key.c \
 			Srcs/ft_redirect.c \
 			Srcs/ft_heredoc.c \
 			Srcs/ft_exec_pipeline.c \
