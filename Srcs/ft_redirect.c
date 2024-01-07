@@ -98,15 +98,13 @@ static void	ft_open(t_cmd *cmds, int i)
 /*
 
 */
-void	ft_redirect(t_cmd *cmds, t_env *env)
+void	ft_redirect(t_cmd *cmds)
 {
 	int	i;
 	int	fd[2];
 
-	ft_heredoc(cmds, env);
 	while (cmds)
 	{
-		printf("error = %d\n", cmds->error);
 		if (!cmds->prev)
 			cmds->fd_in = 0;
 		cmds->fd_out = 1;
