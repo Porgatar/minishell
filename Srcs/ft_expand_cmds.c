@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_cmds.c                                   :+:      :+:    :+:   */
+/*   ft_expand_cmds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 03:08:28 by parinder         ###   ########.fr       */
+/*   Updated: 2023/12/17 19:30:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 	this function join to *expanded the non-special chars that are found in S
 	if succed, return i readed char in the process.
 */
-static int	ft_join(char **expanded, char *s, char quote, char sep)
+static int	ft_join(char **expanded, char *s, char sep)
 {
 	char	*new;
 	char	*joined;
 	int		i;
 
 	i = -1;
-	while (s[++i] && s[i] != quote)
-		if (s[i] == '$' && (!sep || quote != sep))
+	while (s[++i])
+		if (s[i] == '$' || (sep && (s[i] == '\'' || s[i] == '"')))
 			break ;
 	new = ft_substr(s, 0, i);
 	joined = ft_strjoin(*expanded, new);
@@ -39,75 +39,6 @@ static int	ft_join(char **expanded, char *s, char quote, char sep)
 		if (*expanded)
 			free(*expanded);
 		*expanded = new;
-	}
-	return (i);
-}
-
-/*
-	this function expand the errno global var and
-	return 1 if status('?') has been found.
-	return 0 if not.
-*/
-static int	ft_is_status(char **expanded, char *s)
-{
-	char	*status;
-	char	*joined;
-	int		i;
-
-	i = 2;
-	if (s[1] && s[1] == '?')
-	{
-		status = ft_itoa(g_status);
-		if (*expanded)
-		{
-			joined = ft_strjoin(*expanded, status);
-			free(*expanded);
-			free(status);
-			*expanded = joined;
-		}
-		else
-			*expanded = status;
-		while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
-			i++;
-		status = ft_substr(s, 2, i - 2);
-		joined = ft_strjoin(*expanded, status);
-		free(*expanded);
-		free(status);
-		*expanded = joined;
-		return (1);
-	}
-	return (0);
-}
-
-/*
-	this function expand the found key and join it to *expanded if
-	succed, return i readed char in the process.
-*/
-static int	ft_is_key(char **expanded, char *s, t_env *env)
-{
-	t_env	*var;
-	char	*key;
-	int		i;
-
-	i = 1;
-	while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
-		i++;
-	if (s[i])
-		key = ft_substr(s, 1, i - 1);
-	else
-		key = ft_substr(s, 1, i);
-	var = ft_get_env_value(key, env);
-	free(key);
-	if (!ft_is_status(expanded, s) && var)
-	{
-		if (*expanded)
-		{
-			key = ft_strjoin(*expanded, var->value);
-			free(*expanded);
-			*expanded = key;
-		}
-		else
-			*expanded = ft_strdup(var->value);
 	}
 	return (i);
 }
@@ -130,14 +61,14 @@ char	*ft_expand_str(char *s, char sep, t_env *env)
 		if (sep && !quote && s[i] && (s[i] == '"' || s[i] == '\''))
 			quote = s[i++];
 		else if (s[i] && s[i] == '$' && (!sep || quote != sep))
-			i += ft_is_key(&expanded, &s[i], env);
+			i += ft_expand_key(&expanded, &s[i], env);
 		else if (sep && s[i] && s[i] == quote)
 		{
 			quote = 0;
 			i++;
 		}
 		else
-			i += ft_join(&expanded, &s[i], quote, sep);
+			i += ft_join(&expanded, &s[i], sep);
 		if (i == -1)
 			return (s);
 	}
@@ -158,7 +89,7 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 		while (cmds->cmd[i])
 		{
 			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], '\'', env);
-			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
+			if (cmds->cmd[i] && !ft_strncmp(cmds->cmd[i], "<<", 3))
 				i++;
 			i++;
 		}

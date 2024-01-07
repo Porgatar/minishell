@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/03 17:25:39 by luhego           ###   ########.fr       */
+/*   Updated: 2023/12/17 18:33:44 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ typedef struct s_env
 
 /*	-	-	-	main.c	-	-	-	-	-	-	*/
 
-void	ft_promptloop(t_env *env);
-
 /*	-	-	-	ft_check_syntax.c	-	-	*/
 
 int		ft_check_syntax(char **tokens);
@@ -83,9 +81,13 @@ t_cmd	*ft_parse_to_cmds(char **tokens);
 char	*ft_expand_str(char *s, char sep, t_env *env);
 void	ft_expand_cmds(t_cmd *cmds, t_env *env);
 
+/*	-	-	-	ft_expand_key.c		-	-	-	*/
+
+int		ft_expand_key(char **expanded, char *s, t_env *env);
+
 /*	-	-	-	ft_redirect.c	-	-	-	-	*/
 
-void	ft_redirect(t_cmd *cmds, t_env *env);
+void	ft_redirect(t_cmd *cmds);
 void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_heredoc.c	-	-	-	-	*/
