@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/17 18:33:44 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:46:03 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ extern int	g_status;
 # define FORK		2
 # define HEREDOC	3
 
+# define IS_OK		321
+
 /*	-	-	-	Typedefs	-	-	-	-	-	*/
 
 typedef struct s_cmd
@@ -49,8 +51,8 @@ typedef struct s_cmd
 	char			**cmd;
 	int				fd_in;
 	int				fd_out;
-	int				error;
 	int				heredoc;
+	int				error;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -64,7 +66,7 @@ typedef struct s_env
 
 /*	-	-	-	main.c	-	-	-	-	-	-	*/
 
-/*	-	-	-	ft_check_syntax.c	-	-	*/
+/*	-	-	-	ft_check_syntax.c	-	-	-	*/
 
 int		ft_check_syntax(char **tokens);
 
@@ -92,7 +94,7 @@ void	ft_close_fds(t_cmd *cmds);
 
 /*	-	-	-	ft_heredoc.c	-	-	-	-	*/
 
-void	ft_heredoc(t_cmd *cmds, t_env *env);
+int		ft_heredoc(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 
@@ -122,7 +124,7 @@ int		ft_exec_builtins(t_cmd *cmds, t_env *env);
 
 //	-	ft_unset.c
 int		ft_unset(t_cmd *cmds, t_env *env);
-int		ft_check_digit(char *str);
+int		ft_check_error(char *str);
 
 //	-	ft_exit.c
 int		ft_exit(t_cmd *cmds, t_env *env);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expand_key.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/08 12:51:07 by parinder          #+#    #+#             */
+/*   Updated: 2024/01/08 12:51:56 by parinder         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -36,7 +47,8 @@ static int	ft_is_status(char **expanded, char *s)
 	if (s[1] && s[1] == '?')
 	{
 		ft_get_status(expanded);
-		while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
+		while (s[i] && !is_space(s[i]) && s[i] != '$' \
+		&& s[i] != '\'' && s[i] != '"')
 			i++;
 		status = ft_substr(s, 2, i - 2);
 		joined = ft_strjoin(*expanded, status);
@@ -59,7 +71,8 @@ static char	*ft_get_value(const char *s, int *j, t_env *env)
 	int		i;
 
 	i = 1;
-	while (s[i] && !is_space(s[i]) && s[i] != '$' && s[i] != '\'' && s[i] != '"')
+	while (s[i] && !is_space(s[i]) && s[i] != '$' \
+	&& s[i] != '\'' && s[i] != '"')
 		i++;
 	if (s[i])
 		key = ft_substr(s, 1, i - 1);

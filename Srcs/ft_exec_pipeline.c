@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/14 15:36:55 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:10:03 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,12 @@ static char	*find_path(char *path, char *cmd)
 	this function is here to check if the path is correct,
 	in cases he's not the function check if the path can be found
 */
-
 static char	*get_path(char *cmd, t_env *env)
 {
 	char	**cmd_tab;
 	char	*path;
 	int		i;
-	
+
 	if (ft_get_env_value("PATH", env) != 0)
 		cmd_tab = ft_split(ft_get_env_value("PATH", env)->value, ':');
 	else
@@ -159,6 +158,8 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 			close(cmds->fd_in);
 		if (cmds->fd_out > 1)
 			close(cmds->fd_out);
+		if (cmds->heredoc > 0)
+			close(cmds->heredoc);
 		if (!cmds->next)
 			break ;
 		cmds = cmds->next;

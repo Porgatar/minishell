@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:08:17 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 01:22:35 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 12:55:11 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ static int	ft_check_redirection(char *token, int *redirection)
 		{
 			printf("%s", RED);
 			if (token)
-				printf("Minishell: syntax error near unexpected token `%s'", token);
+				printf("Minishell: syntax error near unexpected token `%s'", \
+				token);
 			else
-				printf("Minishell: syntax error near unexpected token `newline'");
+				printf(\
+				"Minishell: syntax error near unexpected token `newline'");
 			printf("%s\n", RESET);
 			return (2);
 		}
@@ -51,16 +53,18 @@ static int	ft_check_pipe(char *token, int *pipe)
 		{
 			printf("%s", RED);
 			if (token)
-				printf("Minishell: syntax error near unexpected token `%s'", token);
+				printf("Minishell: syntax error near unexpected token `%s'", \
+				token);
 			else
-				printf("Minishell: syntax error near unexpected token `newline'");
+				printf(\
+				"Minishell: syntax error near unexpected token `newline'");
 			printf("%s\n", RESET);
 			return (2);
 		}
 		*pipe = 0;
 	}
 	else if (token && token[0] == '|')
-			*pipe = 1;
+		*pipe = 1;
 	return (0);
 }
 
@@ -82,9 +86,9 @@ int	ft_check_syntax(char **tokens)
 	while (tokens[i] || redirection || pipe)
 	{
 		if (ft_check_redirection(tokens[i], &redirection))
-			 break ;
+			break ;
 		if (ft_check_pipe(tokens[i], &pipe))
-			 break ;
+			break ;
 		i++;
 	}
 	if (tokens[i] || redirection || pipe)
