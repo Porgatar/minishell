@@ -6,7 +6,7 @@
 /*   By: luhego <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:58:30 by luhego            #+#    #+#             */
-/*   Updated: 2024/01/08 15:35:59 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:36:39 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	ft_check_error(char	*str)
 		return (1);
 	if (str[0] == '-')
 		return (2);
-	i = -1;
-	while (str[++i] && str[i] != '+' && str[i] != '=')
-		if ((str[i] >= '0' && str[i] <= '9'))
-			return (1);
+	i = 0;
+	if ((str[i] >= '0' && str[i] <= '9'))
+		return (1);
+	while (str[i] && str[i] != '+' && str[i] != '=')
+		i++;
 	if (str[i] == '+')
 		i++;
-	if ((str[i] && str[i] != '=') || (str[i] == '=' && \
-	(str[i + 1] == '=' || str[i + 1] == '+')))
+	if (str[i] && str[i] == '+')
 		return (1);
 	if (!str[i] || (str[i] && !str[i + 1]))
 		return (321);

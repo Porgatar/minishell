@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2024/01/08 15:39:54 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:31:53 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,29 @@ static void	ft_display_export(t_cmd *cmds, t_env *env)
 static int	ft_export_env(char *s, t_env *env)
 {
 	int		i;
-	int		error;
 	t_env	*var;
 	char	*tmp;
 
-	error = ft_check_error(s);
-	if (error)
-		return (error);
+	if (ft_check_error(s))
+		return (ft_check_error(s));
 	i = 0;
-	while (s[i] && s[i] != '=' && s[i] != '+')
+	while (s[i] && s[i] != '=')
 		i++;
 	s[i] = 0;
-	var = ft_get_env_value(s, env);
-	if (s[i + 1] == '=' && var)
+	if (i && s[i - 1] == '+')
 	{
-		tmp = ft_strjoin(var->value, &s[i + 2]);
+		s[i - 1] = 0;
+		var = ft_get_env_value(s, env);
+		if (!var)
+			ft_env_new(&env, s, &s[i + 1]);
+		if (!var)
+			return (0);
+		tmp = ft_strjoin(var->value, &s[i + 1]);
 		free(var->value);
 		var->value = tmp;
 		return (0);
 	}
-	if (s[i + 1] == '=')
-		ft_env_new(&env, s, &s[i + 2]);
-	else
-		ft_env_new(&env, s, &s[i + 1]);
+	ft_env_new(&env, s, &s[i + 1]);
 	return (0);
 }
 
