@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:49:54 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/08 12:56:12 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:02:16 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_expand_cmds(t_cmd *cmds, t_env *env)
 		while (cmds->cmd[i])
 		{
 			cmds->cmd[i] = ft_expand_str(cmds->cmd[i], '\'', env);
+			if (!cmds->cmd[i])
+				cmds->cmd[i] = ft_strdup("");
 			if (cmds->cmd[i] && !ft_strncmp(cmds->cmd[i], "<<", 3))
 				i++;
 			i++;
