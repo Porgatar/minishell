@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:32:18 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/17 19:33:31 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:37:28 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_close_fds(t_cmd *cmds)
 			close(cmds->fd_in);
 		if (cmds->fd_out > 1)
 			close(cmds->fd_out);
+		if (cmds->heredoc > 0)
+			close(cmds->heredoc);
 		cmds = cmds->next;
 	}
 }
@@ -59,14 +61,16 @@ static void	ft_check_redirect_error(t_cmd *cmds, int i)
 		if (cmds->fd_in == -1 || cmds->fd_out == -1)
 		{
 			printf(RED);
-			printf("minishell: %s: No such file or directory\n", cmds->cmd[i + 1]);
+			printf("minishell: %s: No such file or directory\n", \
+			cmds->cmd[i + 1]);
 			printf(RESET);
 		}
 	}
 }
 
 /*
-
+	this function opens the file and
+	set the correct var to the fd value.
 */
 static void	ft_open(t_cmd *cmds, int i)
 {
@@ -85,10 +89,12 @@ static void	ft_open(t_cmd *cmds, int i)
 	{
 		if (cmds->fd_in > 0)
 			close(cmds->fd_in);
-		if (!strncmp(cmds->cmd[i], "<", 2))
+		if (cmds->heredoc != -101 && !strncmp(cmds->cmd[i], "<", 2))
 			cmds->fd_in = open(cmds->cmd[i + 1], O_RDONLY);
-		else
+		else if (cmds->heredoc >= 0)
 			cmds->fd_in = dup(cmds->heredoc);
+		else
+			cmds->fd_in = -101;
 	}
 	if (!cmds->error)
 		ft_check_redirect_error(cmds, i);
@@ -96,7 +102,7 @@ static void	ft_open(t_cmd *cmds, int i)
 }
 
 /*
-
+	this function opens all redirection of all cmds.
 */
 void	ft_redirect(t_cmd *cmds)
 {

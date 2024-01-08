@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:47:33 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/12 22:23:07 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:46:38 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,33 +111,32 @@ static int	ft_set_heredoc(t_cmd *cmds, int i, t_env *env)
 }
 
 /*
-
+	this function oppens all heredoc and
+	set the cmds->heredoc var to the last one created
+	for all cmds list.
 */
-void	ft_heredoc(t_cmd *cmds, t_env *env)
+int	ft_heredoc(t_cmd *cmds, t_env *env)
 {
 	int	i;
 
 	while (cmds)
 	{
-		i = 0;
+		i = -1;
 		cmds->heredoc = -1;
-		if (cmds->prev && cmds->prev->heredoc == -101)
-			cmds->heredoc = -101;
-		while (cmds->heredoc != -101 && cmds->cmd[i])
+		while (cmds->heredoc != -101 && cmds->cmd[++i])
 		{
-			if (ft_strncmp(cmds->cmd[i], "<<", 0))
+			if (!ft_strncmp(cmds->cmd[i], "<<", 3))
 			{
 				if (cmds->heredoc >= 0)
 					close(cmds->heredoc);
 				cmds->heredoc = ft_set_heredoc(cmds, i, env);
 				if (cmds->heredoc == -101)
-					break ;
+					return (-1);
 			}
-			else
-				i++;
 		}
 		if (!cmds->next)
 			break ;
 		cmds = cmds->next;
 	}
+	return (0);
 }

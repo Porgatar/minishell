@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2023/12/14 13:14:18 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:39:54 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,33 @@ static void	ft_display_export(t_cmd *cmds, t_env *env)
 	this function split S and export it in the t_env chained list
 	in format key=value.
 */
-void	ft_export_env(char *s, t_env *env)
+static int	ft_export_env(char *s, t_env *env)
 {
-	int	i;
+	int		i;
+	int		error;
+	t_env	*var;
+	char	*tmp;
 
+	error = ft_check_error(s);
+	if (error)
+		return (error);
 	i = 0;
-	while (s[i] && s[i] != '=')
+	while (s[i] && s[i] != '=' && s[i] != '+')
 		i++;
-	if (!s[i])
-		return ;
 	s[i] = 0;
-	ft_env_new(&env, s, &s[i + 1]);
+	var = ft_get_env_value(s, env);
+	if (s[i + 1] == '=' && var)
+	{
+		tmp = ft_strjoin(var->value, &s[i + 2]);
+		free(var->value);
+		var->value = tmp;
+		return (0);
+	}
+	if (s[i + 1] == '=')
+		ft_env_new(&env, s, &s[i + 2]);
+	else
+		ft_env_new(&env, s, &s[i + 1]);
+	return (0);
 }
 
 /*
@@ -113,6 +129,7 @@ void	ft_export_env(char *s, t_env *env)
 int	ft_export(t_cmd *cmds, t_env *env)
 {
 	int	i;
+	int	error;
 
 	if (!cmds->cmd[1])
 	{
@@ -121,10 +138,16 @@ int	ft_export(t_cmd *cmds, t_env *env)
 	}
 	if (cmds->prev || cmds->next)
 		return (0);
-	i = 0;
+	i = 1;
 	while (cmds->cmd[i])
 	{
-		ft_export_env(cmds->cmd[i], env);
+		error = ft_export_env(cmds->cmd[i], env);
+		if (error && error != IS_OK)
+		{
+			printf("%sminishell: export: `%s' not a valid identifier%s\n", \
+			RED, cmds->cmd[i], RESET);
+			return (error);
+		}
 		i++;
 	}
 	return (0);

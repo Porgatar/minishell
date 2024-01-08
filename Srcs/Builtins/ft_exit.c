@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:56:49 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/14 13:18:37 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/08 12:56:50 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	ft_exit_status(t_cmd *cmds, t_env *env)
 			g_status = 0;
 		if (cmds->cmd[1] && cmds->cmd[1][0] != '0' && !g_status)
 		{
-			printf("%sminishell: exit: %s: numeric arguments required%s\n", RED, cmds->cmd[1], RESET);
+			printf("%sminishell: exit: %s: numeric arguments required%s\n", \
+			RED, cmds->cmd[1], RESET);
 			ft_env_clear(env);
 			ft_cmd_clear(cmds);
 			exit(2);
