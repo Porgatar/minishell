@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:24 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/09 15:46:40 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:32:14 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_heredoc(t_cmd *cmds, t_env *env);
 
 /*	-	-	-	ft_exec_pipeline.c	-	-	-	*/
 
-void	ft_exec_pipeline(t_cmd *cmds, t_env *env);
+void	ft_exec_pipeline(t_cmd *cmds, t_env **env);
 
 /*	-	-	-	signals.c	-	-	-	-	-	*/
 
@@ -120,10 +120,10 @@ t_env	*ft_index_env(char **envp);
 int		ft_env(t_cmd *cmds, t_env *env);
 
 //	-	ft_exec_builtins.c
-int		ft_exec_builtins(t_cmd *cmds, t_env *env);
+int		ft_exec_builtins(t_cmd *cmds, t_env **env);
 
 //	-	ft_unset.c
-int		ft_unset(t_cmd *cmds, t_env *env);
+int		ft_unset(t_cmd *cmds, t_env **env);
 int		ft_check_error(char *str, t_env *env);
 
 //	-	ft_exit.c

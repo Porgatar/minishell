@@ -6,7 +6,7 @@
 /*   By: luhego <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:58:30 by luhego            #+#    #+#             */
-/*   Updated: 2024/01/09 15:45:14 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 22:45:32 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,59 @@ int	ft_check_error(char	*str, t_env *env)
 		return (1);
 	if (!str[i])
 	{
-		ft_env_new(&env, str, &str[i]);
+		if (!ft_get_env_value(str, env))
+			ft_env_new(&env, str, &str[i]);
 		return (IS_OK);
 	}
 	return (0);
 }
 
 /*
+	this function delete one list of the t_env chained list.
+*/
+static void	ft_delone(char *s, t_env **env)
+{
+	t_env	*ptr;
+	t_env	*tmp;
+
+	tmp = *env;
+	ptr = ft_get_env_value(s, *env);
+	if (ptr)
+	{
+		if (ptr == tmp)
+			*env = tmp->next;
+		else if (tmp)
+		{
+			while (tmp->next != ptr)
+				tmp = tmp->next;
+			tmp->next = tmp->next->next;
+		}
+		free(ptr->key);
+		free(ptr->value);
+		free(ptr);
+	}
+}
+
+/*
 	this function delete a var in the t_env chained list.
 */
-int	ft_unset(t_cmd *cmds, t_env *env)
+int	ft_unset(t_cmd *cmds, t_env **env)
 {
 	int		i;
-	t_env	*ptr;
 
 	if (cmds->prev || cmds->next)
 		return (0);
 	if (cmds->cmd[1] && cmds->cmd[1][0] == '-')
 	{
-		printf("invalid option\n");
+		printf("%sminishell: unset: -%c: invalid option%s\n", \
+		RED, cmds->cmd[1][1], RESET);
 		return (2);
 	}
-	i = -1;
-	while (cmds->cmd[++i])
+	i = 0;
+	while (cmds->cmd[i])
 	{
-		ptr = ft_get_env_value(cmds->cmd[i], env);
-		if (ptr != 0)
-		{
-			while (env->next != ptr)
-				env = env->next;
-			env->next = env->next->next;
-			free(ptr->key);
-			free(ptr->value);
-			free(ptr);
-		}
+		ft_delone(cmds->cmd[i], env);
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/09 14:55:04 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:33:08 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,20 @@ int	g_status;
 /*
 	this function display the prompt and wait for readline to execute it.
 */
-static void	ft_promptloop(char *line, t_env *env)
+static void	ft_promptloop(char *line, t_env **env)
 {
 	char	**tokens;
 	t_cmd	*cmds;
 
-	if (!line)
-		ft_exit(0, env);
 	tokens = ft_split_to_tokens(line);
 	if (!ft_check_syntax(tokens))
 	{
 		cmds = ft_parse_to_cmds(tokens);
 		if (cmds)
 		{
-			ft_expand_cmds(cmds, env);
+			ft_expand_cmds(cmds, *env);
 			g_status = 0;
-			if (!ft_heredoc(cmds, env))
+			if (!ft_heredoc(cmds, *env))
 			{
 				ft_redirect(cmds);
 				ft_exec_pipeline(cmds, env);
@@ -60,9 +58,14 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = readline("Minishell❤️ :");
+		if (!line)
+		{
+			printf("\nexit");
+			ft_exit(0, env);
+		}
 		if (line && line[0])
 			add_history(line);
-		ft_promptloop(line, env);
+		ft_promptloop(line, &env);
 	}
 	return (0);
 }
