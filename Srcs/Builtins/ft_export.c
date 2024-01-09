@@ -6,7 +6,7 @@
 /*   By: parinder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:17:49 by parinder          #+#    #+#             */
-/*   Updated: 2024/01/08 19:31:53 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:45:36 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ static int	ft_export_env(char *s, t_env *env)
 	t_env	*var;
 	char	*tmp;
 
-	if (ft_check_error(s))
-		return (ft_check_error(s));
+	if (ft_check_error(s, env))
+		return (ft_check_error(s, env));
 	i = 0;
 	while (s[i] && s[i] != '=')
 		i++;

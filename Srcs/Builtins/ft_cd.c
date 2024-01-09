@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:59:12 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/08 12:56:35 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:19:16 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_cd(t_cmd *cmds, t_env *env)
 	if (cmds->prev || cmds->next)
 		return (0);
 	getcwd(pwd, 1024);
-	if (cmds->cmd[2] || chdir(cmds->cmd[1]))
+	if (cmds->cmd[1] && (cmds->cmd[2] || chdir(cmds->cmd[1])))
 	{
 		if (cmds->cmd[2])
 			printf("%scd: too many arguments%s\n", RED, RESET);
