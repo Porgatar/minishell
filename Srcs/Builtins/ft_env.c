@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:23:09 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/14 12:34:48 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:48:30 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,13 @@ int	ft_env(t_cmd *cmds, t_env *env)
 	}
 	while (env)
 	{
-		write(cmds->fd_out, env->key, ft_strlen(env->key));
-		write(cmds->fd_out, "=", 1);
-		write(cmds->fd_out, env->value, ft_strlen(env->value));
-		write(cmds->fd_out, "\n", 1);
+		if (env->value[0])
+		{
+			write(cmds->fd_out, env->key, ft_strlen(env->key));
+			write(cmds->fd_out, "=", 1);
+			write(cmds->fd_out, env->value, ft_strlen(env->value));
+			write(cmds->fd_out, "\n", 1);
+		}
 		env = env->next;
 	}
 	return (0);
