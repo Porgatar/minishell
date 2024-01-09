@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:38:02 by luhego & parinder #+#    #+#             */
-/*   Updated: 2023/12/12 18:33:35 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:43:09 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	sig_heredoc(int sig)
 		close(0);
 	}
 	else if (sig == SIGQUIT)
-		g_status = 131;
+		g_status = 0;
 }
 
 void	ft_set_sighandler(int mode)

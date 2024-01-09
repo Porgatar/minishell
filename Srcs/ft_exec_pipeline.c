@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:53:00 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/08 16:10:03 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:30:55 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ static void	ft_exec_cmd(t_cmd *cmds, t_env *env)
 	dup2(cmds->fd_in, STDIN_FILENO);
 	dup2(cmds->fd_out, STDOUT_FILENO);
 	ft_close_fds(cmds);
-	if (access(cmds->cmd[0], X_OK | O_DIRECTORY) == -1)
+	if (access(cmds->cmd[0], X_OK) == -1 || open(cmds->cmd[0], O_DIRECTORY) > 0)
 	{
 		path = get_path(cmds->cmd[0], env);
 		if (path == NULL)
 		{
 			g_status = 127;
+			if (!access(cmds->cmd[0], F_OK))
+				close(3);
 			if (!access(cmds->cmd[0], F_OK))
 				g_status = 126;
 			ft_cmd_clear(cmds);
@@ -139,7 +141,7 @@ static void	ft_waitpid(t_cmd *cmds)
 /*
 	this execute all the right cmds in the pipeline
 */
-void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
+void	ft_exec_pipeline(t_cmd *cmds, t_env **env)
 {
 	ft_set_sighandler(FORK);
 	while (cmds)
@@ -150,7 +152,7 @@ void	ft_exec_pipeline(t_cmd *cmds, t_env *env)
 		{
 			cmds->pid = fork();
 			if (cmds->pid == 0)
-				ft_exec_cmd(cmds, env);
+				ft_exec_cmd(cmds, *env);
 		}
 		else
 			cmds->pid = 0;
