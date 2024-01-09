@@ -6,7 +6,7 @@
 /*   By: luhego & parinder <marvin@42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:30:58 by luhego & parinder #+#    #+#             */
-/*   Updated: 2024/01/08 16:49:10 by parinder         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:55:04 by parinder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	ft_promptloop(char *line, t_env *env)
 	char	**tokens;
 	t_cmd	*cmds;
 
+	if (!line)
+		ft_exit(0, env);
 	tokens = ft_split_to_tokens(line);
 	if (!ft_check_syntax(tokens))
 	{
@@ -40,8 +42,6 @@ static void	ft_promptloop(char *line, t_env *env)
 	}
 	else if (tokens)
 		ft_free_2dtab(tokens);
-	else
-		ft_exit(0, env);
 }
 
 /*
